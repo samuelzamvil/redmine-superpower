@@ -1,0 +1,5 @@
+# Claude Code local, machine-specific settings — never published
+.claude/settings.local.json
+
+# OS / editor cruft
+.DS_Store
