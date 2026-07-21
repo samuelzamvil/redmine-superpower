@@ -6,7 +6,7 @@ Read by this skill during a RE-VERIFY upgrade, and ONLY when the section's
 Covers the `## Collaboration (optional)` section only. The base conventions have
 their own changelog at `skills/redmine-onboarding/CHANGELOG.md`.
 
-## unversioned → v1
+## unversioned → 1
 
 A Collaboration section with no `collab_version:` line was written by the
 release that introduced collaboration, before versioning existed. Every field of

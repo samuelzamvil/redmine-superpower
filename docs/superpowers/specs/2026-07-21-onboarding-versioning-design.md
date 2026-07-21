@@ -38,7 +38,9 @@ no mismatch for it, which is the same outcome.
 
 ### In each skill
 
-A `Release: v1` line in the body, directly under the H1.
+A `Release: 1` line in the body, directly under the H1. The value is a bare
+integer — no `v` prefix — because it is compared literally against the stamp
+fields in `redmine-conventions.md`.
 
 Skill bodies are loaded in full when the skill loads, so the current release is
 always already in context — the happy path costs no extra read. This is why the

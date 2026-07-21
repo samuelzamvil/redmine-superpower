@@ -47,7 +47,7 @@ a `CHANGELOG.md` in its own folder, opened only during an upgrade.
 - Modify: `redmine-conventions.template.md`
 
 **Interfaces:**
-- Produces: the literal line `**Release:** v1` in each skill body, directly
+- Produces: the literal line `**Release:** 1` in each skill body, directly
   under the H1. Tasks 3 and 4 compare against this. Produces the stamp field
   names `conventions_version:` and `collab_version:`, which Tasks 2–5 all use
   verbatim.
@@ -58,13 +58,13 @@ Insert immediately after the H1 line, followed by a blank line. For the two
 onboarding skills use the changelog-bearing form:
 
 ```markdown
-**Release:** v1 (conventions schema version — see `CHANGELOG.md` in this folder)
+**Release:** 1 (conventions schema version — see `CHANGELOG.md` in this folder)
 ```
 
 For `redmine-tracking`, `redmine-coordinator`, and `redmine-reviewer` use:
 
 ```markdown
-**Release:** v1 (conventions schema version)
+**Release:** 1 (conventions schema version)
 ```
 
 Exact H1 lines to insert after:
@@ -79,7 +79,7 @@ unknown-key leniency is documented for `plugin.json` but not for skills.
 
 - [ ] **Step 2: Verify all five carry the line**
 
-Run: `grep -c "^\*\*Release:\*\* v1" skills/*/SKILL.md`
+Run: `grep -c "^\*\*Release:\*\* 1" skills/*/SKILL.md`
 
 Expected: five lines, each ending `:1` —
 
@@ -183,7 +183,7 @@ fields.
 Covers the BASE conventions only. The `## Collaboration (optional)` section has
 its own changelog at `skills/redmine-collab-onboarding/CHANGELOG.md`.
 
-## unversioned → v1
+## unversioned → 1
 
 A file with no `conventions_version:` line was written before versioning
 existed.
@@ -215,7 +215,7 @@ Read by this skill during a RE-VERIFY upgrade, and ONLY when the section's
 Covers the `## Collaboration (optional)` section only. The base conventions have
 their own changelog at `skills/redmine-onboarding/CHANGELOG.md`.
 
-## unversioned → v1
+## unversioned → 1
 
 A Collaboration section with no `collab_version:` line was written by the
 release that introduced collaboration, before versioning existed. Every field of

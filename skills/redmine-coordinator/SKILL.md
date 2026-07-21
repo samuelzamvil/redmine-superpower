@@ -5,7 +5,7 @@ description: Use when the human starts a collaborative ticket session ("work #N 
 
 # Redmine Coordinator
 
-**Release:** v1 (conventions schema version)
+**Release:** 1 (conventions schema version)
 
 ## Core principle
 

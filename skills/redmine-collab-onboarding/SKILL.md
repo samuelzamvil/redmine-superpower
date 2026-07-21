@@ -5,7 +5,7 @@ description: Use when the human wants to set up multi-model collaboration for a 
 
 # Redmine Collab Onboarding
 
-**Release:** v1 (conventions schema version — see `CHANGELOG.md` in this folder)
+**Release:** 1 (conventions schema version — see `CHANGELOG.md` in this folder)
 
 Run once per repo, after base onboarding passes clean. Optional: repos
 that never run two models never need it. Produces exactly one artifact:

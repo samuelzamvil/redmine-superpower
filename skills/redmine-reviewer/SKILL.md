@@ -5,7 +5,7 @@ description: Use when the human starts a reviewer session for a collaborative ti
 
 # Redmine Reviewer
 
-**Release:** v1 (conventions schema version)
+**Release:** 1 (conventions schema version)
 
 ## Core principle
 

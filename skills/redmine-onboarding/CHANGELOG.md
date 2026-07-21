@@ -8,7 +8,7 @@ fields.
 Covers the BASE conventions only. The `## Collaboration (optional)` section has
 its own changelog at `skills/redmine-collab-onboarding/CHANGELOG.md`.
 
-## unversioned → v1
+## unversioned → 1
 
 A file with no `conventions_version:` line was written before versioning
 existed.
