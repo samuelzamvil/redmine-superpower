@@ -703,7 +703,10 @@ Expected: `exit=1`.
 git log --oneline main..HEAD
 ```
 
-Expected: six commits — the spec, then Tasks 1–5, then Task 6 last and alone.
+Expected: the spec and plan commits, then one commit per task in order, with
+Task 6 last and alone. Fix commits from the review loop are expected and add
+to the count — the invariant is the ORDER and that Task 6 stands by itself,
+not a fixed total.
 
 - [ ] **Confirm tracking still carries no instruction to read a changelog**
 
