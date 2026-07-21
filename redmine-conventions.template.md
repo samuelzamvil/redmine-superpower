@@ -13,7 +13,8 @@ queryable at runtime).
 # Managed by redmine-onboarding. Do not edit on a work branch.
 
 # Schema version this file was written under. Compared against the skills'
-# declared release; a mismatch prompts a re-run of redmine-onboarding.
+# declared release; a mismatch prompts a re-run of redmine-onboarding, or a
+# skills update if this file is newer than the install.
 conventions_version: 1
 
 project_identifier: example-project

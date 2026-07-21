@@ -122,7 +122,7 @@ never fail in a way that blocks work.
 
 At the conventions read it already performs on load, tracking compares the
 file's stamps against its own `Release:` line. It emits **at most one advisory
-line per session**, then continues.
+line per section, at most once per session**, then continues.
 
 Tracking never reads a changelog and never gates. Its entire job here is to say
 "you are behind, run this skill."
@@ -183,6 +183,23 @@ skill is a dead end.
 
 An uncommitted status banner currently sits at the top of `README.md`. It is the
 human's in-flight edit, additive, and in a different section; leave it alone.
+
+## Cutting a release
+
+Bumping the schema version touches, in order:
+
+1. The `**Release:**` line in all five `skills/*/SKILL.md`.
+2. A new entry in the `CHANGELOG.md` of whichever onboarding skill's interview
+   changed — heading `## <previous> → <new>` — listing the fields it adds.
+   A skill whose interview did not change gets no entry and produces no
+   mismatch for its section.
+3. The stamp literals in `redmine-conventions.template.md`.
+
+`redmine-conventions.template.md` lives at the repo root and is NOT installed
+alongside the skills. Both onboarding skills therefore take the release value
+from their own `Release:` line, never from the template — a stale template
+cannot produce a wrong stamp, though leaving it behind will mislead a human
+reading it.
 
 ## Verification
 
