@@ -75,6 +75,9 @@ End with two lists:
 Do not proceed to normal tracking work in the same session unless the
 verification passed clean or the human explicitly says to continue.
 
+Optionally: to set up multi-model collaboration for this repo, run
+`redmine-collab-onboarding` once this verification passes clean.
+
 ## Ground rules
 
 - Fixtures are labeled as fixtures and live only in the configured
