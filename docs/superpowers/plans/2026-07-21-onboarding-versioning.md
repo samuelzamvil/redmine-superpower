@@ -453,7 +453,7 @@ Expected: exactly one match — the line stating it belongs to base onboarding.
 By inspection of the two inserted sections:
 
 1. Stamps current → step 2 short-circuits. No changelog opened, no questions. ✓
-2. Pre-v1 file → step 3 presents the `unversioned → v1` entry only. Per the
+2. Pre-v1 file → step 3 presents the `unversioned → 1` entry only. Per the
    changelogs from Task 2, neither adds fields, so step 4 asks nothing and
    step 5 stamps. ✓
 3. Changelog missing → stamp withheld, warning repeats next session. ✓

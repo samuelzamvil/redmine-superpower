@@ -25,7 +25,7 @@ before it is **unversioned (pre-v1)**.
 
 Because PR#1 merged and no config update has happened since, every
 `redmine-conventions.md` in existence today is both unversioned *and* predates
-the Collaboration section. A single changelog entry — "unversioned → v1" —
+the Collaboration section. A single changelog entry — "unversioned → 1" —
 therefore covers the entire real-world gap: what PR#1 added, plus the
 introduction of versioning itself.
 
