@@ -290,8 +290,11 @@ Context exhaustion mid-ticket is a when, not an if, on a full-lifecycle run.
   last journal read: #N") so peers can see what the session might have
   missed;
   rebuild state from the contract journal, the latest recap, and journals
-  since; verify current HEAD against the last evidence post; verify or
-  re-arm the standing watcher; then act. Never resume silently.
+  since; verify current HEAD against the last evidence post; **check
+  worktree status — a dirty tree is posted to the ticket before any action
+  and is never silently discarded or silently committed** (uncommitted
+  predecessor state is the #160 skew class); verify or re-arm the standing
+  watcher; then act. Never resume silently.
 - A replacement session inherits nothing from its predecessor's chat — the
   ticket is the only state that survives, which is why recaps and the
   contract journal exist.
@@ -300,6 +303,10 @@ Context exhaustion mid-ticket is a when, not an if, on a full-lifecycle run.
 
 One line: run superpowers normally, re-route the human's conversational seat
 to the ticket, enforce gates, keep the session alive.
+
+Where this section touches protocol content it cites §4 rather than
+restating it; on any divergence, §4 is authoritative. (Same for §6 — the
+role sections are indexes into the protocol, not copies of it.)
 
 - **Trigger:** human starts a collab session on a ticket ("work #N with
   reviewers"). Preconditions: conventions file with collab section present
@@ -318,14 +325,17 @@ to the ticket, enforce gates, keep the session alive.
 - **Phase flow:** brainstorm dialogue → Gate A → spec (committed, SHA
   posted) → dialogue → plan → Gate B → subagent-driven execution with stage
   evidence posts at slow cadence → PR → review chain on the PR → Gate C.
-  redmine-tracking bookkeeping rides along untouched.
+  A phase-boundary recap (§4.10) posts at every transition — a coordinator
+  duty. redmine-tracking bookkeeping rides along untouched.
 - **Reviewer-finding handling:** respond to every finding individually —
   accepted / accepted-with-modification / rejected-with-evidence /
   needs-clarification — verifying each against source before accepting
   (superpowers:receiving-code-review applies).
-- **Gates:** authority rules operationalized — quotability check, halt post,
-  end turn. Corrections record: own errors recorded in the artifact with
-  their cause (the #156 "Corrections made during review" habit).
+- **Gates:** the §4.3 authority rules operationalized — quotability check
+  with journal ID, SHA-bound authorization including the Gate C
+  HEAD-equals-authorized-SHA check at merge time, halt post, end turn.
+  Corrections record: own errors recorded in the artifact with their cause
+  (the #156 "Corrections made during review" habit).
 
 ## 6. `skills/redmine-reviewer/SKILL.md`
 
@@ -349,17 +359,18 @@ greenlight.
   review the diff at the named SHA and verify tree state; distinguish what
   was verified from what could not be (no execute access → say so, scope
   claims accordingly).
-- **Chain conduct (N > 1):** examine in parallel, post by ordinal,
-  delta-only with new/concur/dissent markers; persona shapes emphasis, never
-  scope or standing.
+- **Chain conduct (N > 1):** per §4.5 — examine in parallel, post by
+  ordinal with the coverage attestation and new/concur/dissent markers;
+  persona shapes emphasis, never scope or standing.
 - **Approval discipline:** withhold by default and say so explicitly every
   round ("this is not approval yet"); agreement is a distinct speech act
   naming the SHA; always append "not authorization; next actor: human." Own
   and post your own misses — self-correction increases credibility.
-- **Hard boundaries:** never write/commit repo content; never advance ticket
-  workflow state; never implement your own findings; flag protocol
-  violations (e.g. implementation evidence appearing while a gate was
-  pending) on the ticket immediately.
+- **Hard boundaries:** never write/commit repo content; review committed
+  SHAs from your own checkout, never the coordinator's live worktree
+  (§4.8); never advance ticket workflow state; never implement your own
+  findings; flag protocol violations (e.g. implementation evidence
+  appearing while a gate was pending) on the ticket immediately.
 
 ## 7. `skills/redmine-collab-onboarding/SKILL.md`
 
@@ -373,7 +384,9 @@ greenlight.
   accounts and typical count; signature line format; persona defaults per
   reviewer ordinal (menu, free-form, or none); recognized-commenters
   allowlist (platform + account); default gate configuration and round
-  budget; **human notification preferences** — a short series of questions
+  budget; **per-gate authorization channel strength** (the §4.3 dial — an
+  explicit interview item, defaulting Gate C to human-posted-on-the-ticket
+  where the human holds an account); **human notification preferences** — a short series of questions
   mapping each event class (gate reached, escalation, optional milestones)
   to channels, proposing defaults from what the harness actually supports
   (session chat always; push notification if available; anything else the
@@ -423,6 +436,13 @@ prod.
 - **Stall probe:** kill a reviewer session; verify nudge → escalation.
 - **Waiver probe:** grant "continue through design" mid-session; verify it is
   quoted to the ticket before being acted on.
+- **TOCTOU probe:** land a commit on the review branch after reviewer
+  agreement; verify agreement voids, and at Gate C verify the merge blocks
+  on the HEAD/authorized-SHA mismatch.
+- **Resume probe:** kill the coordinator session mid-execution with
+  uncommitted changes in the tree; verify the replacement announces itself
+  with its cursor, rebuilds from the latest recap, and posts the dirty
+  worktree to the ticket before acting on it.
 
 ## 10. Decisions log
 
