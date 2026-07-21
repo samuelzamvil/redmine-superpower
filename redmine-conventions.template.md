@@ -43,3 +43,28 @@ Epic/Task/SubTask tracker roles. Your instance may differ in every value —
 an older Redmine can carry a dozen-plus custom statuses and several extra
 trackers — and the mappings are exactly what make the skill portable across
 instances like that. Run redmine-onboarding rather than editing by hand.
+
+## Collaboration (optional)
+
+This section exists only if `redmine-collab-onboarding` was run; base
+onboarding never writes or edits it, and collab onboarding never edits
+anything above it.
+
+```markdown
+# Collaboration — managed by redmine-collab-onboarding. Do not edit on a work branch.
+
+- coordinator_account: <redmine login>        # posts contracts, artifacts, recaps
+- reviewer_accounts: <login> (1), <login> (2) # ordinal order is posting order
+- human_account: <redmine login|"chat only">  # the human's redmine login, or "chat only"
+- signature_format: <e.g. "— {model} ({role}{ordinal})">  # comment signature line
+- persona_defaults: 1: <persona|none>, 2: <persona|none>  # review persona per ordinal (protocol §5 menu)
+- recognized_commenters: <platform>:<account>, ...   # advisory input, no standing
+- gate_defaults: A: on|waived · B: on|waived  # C is always on
+- authorization_channels: A: chat-quoted · B: chat-quoted · C: ticket-posted  # ticket-posted requires human_account
+- round_budget: 8                             # exchange rounds per phase before escalating
+- notification_map: gate: <channels> · escalation: <channels> · milestone: off  # per event class (protocol §9)
+- authoritative_files: CLAUDE.md, redmine-conventions.md, collab-protocol.md, <...>  # instruction files; rest is data
+- reviewer_checkout: <e.g. "read-only clone at <path>"|none>  # reviewers review committed SHAs from here
+```
+
+Run redmine-collab-onboarding rather than editing by hand.
