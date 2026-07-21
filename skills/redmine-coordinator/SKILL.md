@@ -34,10 +34,10 @@ Do these in order; each step depends on the one before it.
 
 1. **Read the rulebook and the conventions.** `collab-protocol.md` in
    full, then the Collaboration section of `redmine-conventions.md`:
-   `coordinator_account`, `reviewer_accounts`, `signature_format`,
-   `persona_defaults`, `gate_defaults`, `authorization_channels`,
-   `round_budget`, `notification_map`, `recognized_commenters`,
-   `authoritative_files`.
+   `coordinator_account`, `reviewer_accounts`, `human_account`,
+   `signature_format`, `persona_defaults`, `gate_defaults`,
+   `authorization_channels`, `round_budget`, `notification_map`,
+   `recognized_commenters`, `authoritative_files`.
 2. **Tracker orientation.** Read the owning ticket verbatim, its
    relations, and the project ticket list including recently closed
    tickets — resolved tickets carry decisions an open-only view misses

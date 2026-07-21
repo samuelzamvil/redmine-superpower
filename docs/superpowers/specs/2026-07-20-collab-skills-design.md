@@ -134,7 +134,9 @@ human's words, before it is acted on.
   Gates A/B accept chat-quoted authorization (fabrication is repudiable
   before much damage); Gate C defaults to human-posted-on-the-ticket where
   the human holds a Redmine account, because a fabricated C authorization
-  survives repudiation — the merge already happened.
+  survives repudiation — the merge already happened. A ticket-posted
+  authorization counts only if its journal author is the human account
+  named in the roster.
 - **Gate = turn boundary.** On agreement at a gated phase: post "halting at
   Gate X, awaiting human," notify the human through the channels configured
   in conventions (§4.9), then end the turn. Watcher firings and peer
