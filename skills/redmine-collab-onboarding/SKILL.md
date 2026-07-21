@@ -143,8 +143,9 @@ not skipped silently.
 End with two lists:
 - WORKING: what was verified, per account.
 - NEEDS ADMIN: anything only the admin web UI can fix (missing agent
-  accounts, project memberships, roles and permissions — the REST API
-  cannot create or modify any of these), phrased as concrete steps.
+  accounts, project memberships, roles and permissions — the agent's
+  non-admin API access cannot create or modify any of these), phrased as
+  concrete steps.
 
 Do not start a collaborative session in the same conversation unless
 the verification passed clean or the human explicitly says to continue.

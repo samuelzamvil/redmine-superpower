@@ -52,10 +52,10 @@ decisions log.
   status model uses the six 6.x defaults).
 - A **non-admin agent account** on that instance with an Agent role that can
   view/edit issues, add notes, manage subtasks/relations, and set custom
-  fields — but cannot delete or close, and has no project admin. The REST API
-  cannot create trackers, statuses, custom fields, roles, or workflow grids;
-  those are set up once in the Redmine web UI (onboarding tells you exactly
-  what's missing).
+  fields — but cannot delete or close, and has no project admin. The agent's
+  non-admin API access cannot create trackers, statuses, custom fields, roles,
+  or workflow grids; those are set up once in the Redmine web UI (onboarding
+  tells you exactly what's missing).
 
 ## Install
 

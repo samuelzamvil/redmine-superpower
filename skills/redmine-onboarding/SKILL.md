@@ -107,8 +107,9 @@ changes without applying them, so every probe is write-then-read-back.
 End with two lists:
 - WORKING: what was verified.
 - NEEDS ADMIN: anything only the admin web UI can fix (trackers, statuses,
-  custom fields, roles, workflow grid, instance settings — the REST API
-  cannot create or modify any of these), phrased as concrete steps.
+  custom fields, roles, workflow grid, instance settings — the agent's
+  non-admin API access cannot create or modify any of these), phrased as
+  concrete steps.
 
 Do not proceed to normal tracking work in the same session unless the
 verification passed clean or the human explicitly says to continue.
