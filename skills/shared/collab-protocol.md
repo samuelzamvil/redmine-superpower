@@ -70,8 +70,9 @@ unrecorded waiver fails the quotability test in §3 and does not exist.
 ## §3 — Authority rules
 
 The coordinator owns construction and revision; reviewers own independent
-challenge and technical agreement; the human owns authorization. Every
-rule below enforces that asymmetry from both sides.
+challenge and technical agreement; the human owns authorization. This is
+the #633 asymmetry — "independent sign-off authority … without writing or
+committing code" — and every rule below enforces it from both sides.
 
 - **Quotability test.** Crossing a gate requires the human's quoted words
   or a recorded waiver in the contract — cited by ticket journal ID so

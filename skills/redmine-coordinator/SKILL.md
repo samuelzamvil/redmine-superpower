@@ -34,9 +34,9 @@ Do these in order; each step depends on the one before it.
 
 1. **Read the rulebook and the conventions.** `collab-protocol.md` in
    full, then the Collaboration section of `redmine-conventions.md`:
-   roster accounts, `signature_format`, `persona_defaults`,
-   `gate_defaults`, `authorization_channels`, `round_budget`,
-   `notification_map`, `recognized_commenters`.
+   `coordinator_account`, `reviewer_accounts`, `signature_format`,
+   `persona_defaults`, `gate_defaults`, `authorization_channels`,
+   `round_budget`, `notification_map`, `recognized_commenters`.
 2. **Tracker orientation.** Read the owning ticket verbatim, its
    relations, and the project ticket list including recently closed
    tickets — resolved tickets carry decisions an open-only view misses
@@ -53,7 +53,7 @@ Do these in order; each step depends on the one before it.
    any design question. A silent reviewer is the stall path of
    `collab-protocol.md` §6: nudge on the ticket, then escalate to the
    human through the §9 channels — never start the dialogue into an
-   empty room.
+   empty room (`collab-protocol.md` §2).
 
 ## The rewire rule
 

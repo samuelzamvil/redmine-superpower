@@ -24,7 +24,8 @@ on any divergence the protocol file is authoritative.
 
 - `redmine-conventions.md` with its Collaboration section and
   `collab-protocol.md` are both readable. If either is missing, stop and
-  tell the human; never review on guessed rules.
+  point the human at `redmine-collab-onboarding`; never review on
+  guessed rules.
 - The contract journal (`collab-protocol.md` §2) is posted on the owning
   ticket — or waiting for it is your first act. The human's kickoff
   names your reviewer ordinal.
@@ -64,8 +65,7 @@ in `collab-protocol.md` §6, using your harness's recurring scheduler
 ## Review behavior
 
 - **Verify every claim against its source, never a summary of it**
-  (`collab-protocol.md` §1, §4) — in practice this produces net-new
-  facts, not just confirmations.
+  (`collab-protocol.md` §1, §4).
 - **Re-read authoritative clauses before accepting any mandate,
   exception, or ownership claim.** Check a claimed exception against
   the rule's source text, quoted as a complete clause — half a clause
