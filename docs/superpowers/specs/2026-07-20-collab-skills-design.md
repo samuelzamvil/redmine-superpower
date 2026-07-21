@@ -322,7 +322,10 @@ role sections are indexes into the protocol, not copies of it.)
   (baseline tier: owning ticket verbatim, relations, project ticket list
   including recently closed) → post the contract journal → read back own
   post and arm the standing watcher with that journal ID → wait for reviewer
-  confirmations before posting design questions.
+  confirmations before posting design questions. If the ticket already
+  carries a contract journal, the session is a resume, not a kickoff — the
+  §4.10 resume protocol replaces the steps from contract posting onward;
+  never post a second contract.
 - **The rewire rule:** wherever an active superpowers skill would ask the
   human a non-gate question (brainstorming's clarifying questions, plan
   review, code-review requests), post it to the ticket for the reviewers
@@ -388,7 +391,9 @@ greenlight.
   exists → RE-VERIFY (diff, update only what the human approves) — same
   pattern as base onboarding.
 - **Interview** (one question at a time): coordinator account; reviewer
-  accounts and typical count; signature line format; persona defaults per
+  accounts and typical count; the human's Redmine account or "chat only"
+  (feeds the contract roster; ticket-posted Gate C authorization requires
+  it); signature line format; persona defaults per
   reviewer ordinal (menu, free-form, or none); recognized-commenters
   allowlist (platform + account); default gate configuration and round
   budget; **per-gate authorization channel strength** (the §4.3 dial — an

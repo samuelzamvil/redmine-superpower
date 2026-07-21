@@ -23,9 +23,11 @@ on any divergence the protocol file is authoritative.
 ## Preconditions
 
 - `redmine-conventions.md` with its Collaboration section and
-  `collab-protocol.md` are both readable. If either is missing, stop and
-  point the human at `redmine-collab-onboarding`; never review on
-  guessed rules.
+  `collab-protocol.md` are both readable. If either is missing, stop —
+  never review on guessed rules. A missing conventions file or
+  Collaboration section → point the human at `redmine-collab-onboarding`;
+  a missing or unreadable `collab-protocol.md` → tell the human the
+  `shared/` folder was not installed alongside the skill folders.
 - The contract journal (`collab-protocol.md` §2) is posted on the owning
   ticket — or waiting for it is your first act. The human's kickoff
   names your reviewer ordinal.

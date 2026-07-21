@@ -108,7 +108,8 @@ committing code" — and every rule below enforces it from both sides.
   A/B authorization is repudiable before much damage is done. Gate C
   defaults to human-posted-on-the-ticket where the human holds a Redmine
   account, because a fabricated C authorization survives repudiation —
-  the merge already happened.
+  the merge already happened. A ticket-posted authorization counts only
+  if its journal author is the human account named in the roster.
 - **Gate = turn boundary.** On agreement at a gated phase: post "halting
   at Gate X, awaiting human," notify the human through the channels
   configured in conventions (§9), then end the turn. Watcher firings and

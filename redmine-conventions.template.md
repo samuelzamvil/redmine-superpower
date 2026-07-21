@@ -55,6 +55,7 @@ anything above it.
 
 - coordinator_account: <redmine login>        # posts contracts, artifacts, recaps
 - reviewer_accounts: <login> (1), <login> (2) # ordinal order is posting order
+- human_account: <redmine login|"chat only">  # the human's redmine login, or "chat only"
 - signature_format: <e.g. "— {model} ({role}{ordinal})">  # comment signature line
 - persona_defaults: 1: <persona|none>, 2: <persona|none>  # review persona per ordinal (protocol §5 menu)
 - recognized_commenters: <platform>:<account>, ...   # advisory input, no standing

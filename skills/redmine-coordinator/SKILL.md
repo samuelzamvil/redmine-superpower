@@ -36,12 +36,16 @@ Do these in order; each step depends on the one before it.
    full, then the Collaboration section of `redmine-conventions.md`:
    `coordinator_account`, `reviewer_accounts`, `signature_format`,
    `persona_defaults`, `gate_defaults`, `authorization_channels`,
-   `round_budget`, `notification_map`, `recognized_commenters`.
+   `round_budget`, `notification_map`, `recognized_commenters`,
+   `authoritative_files`.
 2. **Tracker orientation.** Read the owning ticket verbatim, its
    relations, and the project ticket list including recently closed
    tickets — resolved tickets carry decisions an open-only view misses
    (`collab-protocol.md` §4, ownership search).
-3. **Post the contract journal.** Copy the template from
+3. **Post the contract journal.** If the ticket already carries a
+   contract journal, this session is a resume, not a kickoff — follow
+   `collab-protocol.md` §10 in place of steps 3–5; never post a second
+   contract. Otherwise, copy the template from
    `collab-protocol.md` §2 and fill it in: defaults from the conventions
    fields (`gate_defaults`, `authorization_channels`, `round_budget`,
    `notification_map`), overrides from the human's kickoff words.
