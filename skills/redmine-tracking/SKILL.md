@@ -5,6 +5,8 @@ description: Use whenever any superpowers skill is active in a session that modi
 
 # Redmine Tracking for Superpowers
 
+**Release:** v1 (conventions schema version)
+
 ## Core principle
 
 Superpowers is the workflow; Redmine is its memory. This skill watches which

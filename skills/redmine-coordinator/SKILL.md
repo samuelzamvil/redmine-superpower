@@ -5,6 +5,8 @@ description: Use when the human starts a collaborative ticket session ("work #N 
 
 # Redmine Coordinator
 
+**Release:** v1 (conventions schema version)
+
 ## Core principle
 
 Run superpowers normally; re-route the human's conversational seat to the

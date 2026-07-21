@@ -5,6 +5,8 @@ description: Use when setting up redmine-tracking for a repo for the first time,
 
 # Redmine Onboarding
 
+**Release:** v1 (conventions schema version — see `CHANGELOG.md` in this folder)
+
 Run once per repo/instance pair, and again only after structural changes to
 the Redmine instance. Produces exactly one artifact: `redmine-conventions.md`
 at the repo root. Everything else is verification and reporting.

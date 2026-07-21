@@ -12,6 +12,10 @@ queryable at runtime).
 # Redmine conventions
 # Managed by redmine-onboarding. Do not edit on a work branch.
 
+# Schema version this file was written under. Compared against the skills'
+# declared release; a mismatch prompts a re-run of redmine-onboarding.
+conventions_version: 1
+
 project_identifier: example-project
 
 # Which tracker on this instance plays each role
@@ -53,6 +57,7 @@ anything above it.
 ```markdown
 # Collaboration — managed by redmine-collab-onboarding. Do not edit on a work branch.
 
+- collab_version: 1                           # schema version of this section
 - coordinator_account: <redmine login>        # posts contracts, artifacts, recaps
 - reviewer_accounts: <login> (1), <login> (2) # ordinal order is posting order
 - human_account: <redmine login|"chat only">  # the human's redmine login, or "chat only"
