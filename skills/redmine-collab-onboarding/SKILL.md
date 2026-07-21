@@ -55,7 +55,8 @@ by copying, `shared/` must have been copied alongside the skill folders.
    re-ask a field the section already answers — this is an upgrade, not a
    re-onboarding.
 6. Write `collab_version: <release>` along with any approved changes, under the
-   standalone-commit rule below.
+   standalone-commit rule below. Preserve the section's existing style; do not
+   reformat a pre-v1 section into the template.
 
 If `CHANGELOG.md` is missing or unreadable, say so and do NOT write a version
 stamp. A repeated warning next session is a better failure than a silent false
@@ -124,6 +125,8 @@ runtime. These answers are the contract-template defaults.
 
 1. Append the Collaboration section to `redmine-conventions.md` from
    the template, with the answers. Touch nothing above it.
+   If the section already exists (RE-VERIFY), merge the approved changes into
+   it rather than appending a second section.
    In FRESH mode, write `collab_version:` as the first field of the section,
    set to this skill's declared release — take that value from the `Release:`
    line at the top of this file, never from the template. In RE-VERIFY mode the

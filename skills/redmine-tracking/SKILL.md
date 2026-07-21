@@ -57,6 +57,7 @@ may use prose, tables, or different field names.
 | `conventions_version:` higher than this release | "Conventions at vN, skills at vM — this install is older than the file. Update the installed skills." |
 | No `## Collaboration` section at all | Say NOTHING. Absence is opt-out, not drift. |
 | Collaboration section present, `collab_version:` missing or lower | "Collaboration section at vN, skills at vM. Run `redmine-collab-onboarding` to update." |
+| Collaboration section present, `collab_version:` higher than this release | "Collaboration section at vN, skills at vM — this install is older than the file. Update the installed skills." |
 | Conventions file missing or unreadable | Existing behavior above. Add nothing here. |
 
 At most one line per section, at most once per session — a repo can be stale in
