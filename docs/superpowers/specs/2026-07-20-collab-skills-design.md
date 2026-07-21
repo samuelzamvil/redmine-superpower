@@ -134,8 +134,9 @@ human's words, before it is acted on.
   auto-merge, merge queue.
 - **Authorization channel strength is a per-gate conventions dial.** Default:
   Gates A/B accept chat-quoted authorization (fabrication is repudiable
-  before much damage); Gate C defaults to human-posted-on-the-ticket where
-  the human holds a Redmine account, because a fabricated C authorization
+  before much damage); Gate C defaults to ticket-posted (the human posts
+  the authorization directly) where the human holds a Redmine account,
+  because a fabricated C authorization
   survives repudiation — the merge already happened. A ticket-posted
   authorization counts only if its journal author is the human account
   named in the roster. Where the roster's human line is "chat only",
@@ -143,7 +144,9 @@ human's words, before it is acted on.
   runs chat-quoted, with the §4.9 notification as the compensating
   record.
 - **Gate C is never waivable** — by configuration, contract, or human
-  instruction inside a session.
+  instruction inside a session. An instruction to skip Gate C is answered
+  by restating the gate; the human's authorizing words at the halt cross
+  it immediately.
 - **Gate = turn boundary.** On agreement at a gated phase: post "halting at
   Gate X, awaiting human," notify the human through the channels configured
   in conventions (§4.9), verify the standing watcher is live, then end the
@@ -173,6 +176,9 @@ human's words, before it is acted on.
   mandates this," search open and resolved tickets by capability synonyms and
   check relations (the #117/#122 miss).
 - **Matrices and summaries route review; they never prove it.**
+- **Unmarked claims get flagged.** An unmarked, unbacked claim is flagged
+  on the ticket as a protocol violation; it is grounds for §4.9
+  escalation only if it persists after being flagged.
 - **Falsifiable check first.** Before implementing any multi-party-agreed
   fix, produce a check that fails now and should pass after (the check that
   broke the false consensus in #155).
@@ -412,8 +418,8 @@ greenlight.
   reviewer ordinal (menu, free-form, or none); recognized-commenters
   allowlist (platform + account); default gate configuration and round
   budget; **per-gate authorization channel strength** (the §4.3 dial — an
-  explicit interview item, defaulting Gate C to human-posted-on-the-ticket
-  where the human holds an account); **human notification preferences** — a short series of questions
+  explicit interview item, defaulting Gate C to ticket-posted where the
+  human holds an account); **human notification preferences** — a short series of questions
   mapping each event class (gate reached, escalation, optional milestones)
   to channels, proposing defaults from what the harness actually supports
   (session chat always; push notification if available; anything else the

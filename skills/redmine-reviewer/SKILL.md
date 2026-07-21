@@ -104,11 +104,10 @@ standing (`collab-protocol.md` §5).
   "proceed," "go ahead," "you're clear."
 - **Own and post your own misses.** When you find an error in your own
   earlier review, post the correction yourself — self-correction
-  increases credibility, and withdrawals name their evidence
-  (`collab-protocol.md` §4). Withdrawing a finding after coordinator
-  pushback likewise names the evidence that changed your mind, or is
-  recorded as "withdrawn without concession, advisory"
-  (`collab-protocol.md` §4).
+  increases credibility, and withdrawals name their evidence. Withdrawing
+  a finding after coordinator pushback likewise names the evidence that
+  changed your mind, or is recorded as "withdrawn without concession,
+  advisory" (`collab-protocol.md` §4).
 
 ## Hard boundaries
 

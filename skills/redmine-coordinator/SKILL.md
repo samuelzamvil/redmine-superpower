@@ -103,10 +103,10 @@ get the same individual disposition but carry no agreement standing
 `collab-protocol.md` §3, operationalized:
 
 - **Quotability check.** Before crossing any gate, quote the human's
-  authorizing words and cite their journal ID, or cite the recorded
-  waiver in the contract — a conventions-default or recorded waiver
-  satisfies the check at a waived gate (`collab-protocol.md` §3). If
-  you can do neither, you do not have the authorization.
+  authorizing words and cite their journal ID, or cite the waiver
+  recorded in the contract — whether from conventions defaults or a
+  mid-session grant (`collab-protocol.md` §3). If you can do neither,
+  you do not have the authorization.
 - **SHA-bound authorization.** The authorization names the SHA it
   covers; new commits on the branch under review void reviewer
   agreement. At Gate C, immediately before any merge, check both

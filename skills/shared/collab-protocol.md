@@ -116,7 +116,9 @@ committing code" — and every rule below enforces it from both sides.
   Gate C then runs chat-quoted, with the §9 notification as the
   compensating record.
 - **Gate C is never waivable** — by configuration, contract, or human
-  instruction inside a session. Only Gates A and B can be waived.
+  instruction inside a session. Only Gates A and B can be waived. An
+  instruction to skip Gate C is answered by restating the gate; the
+  human's authorizing words at the halt cross it immediately.
 - **Gate = turn boundary.** On agreement at a gated phase: post "halting
   at Gate X, awaiting human," notify the human through the channels
   configured in conventions (§9), verify your standing watcher is live
