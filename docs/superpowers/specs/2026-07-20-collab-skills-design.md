@@ -109,7 +109,8 @@ human's words, before it is acted on.
   authorship — it can never authorize. "Quote the authorization for Gate X;
   if you cannot quote it, you do not have it."
 - **Gate = turn boundary.** On agreement at a gated phase: post "halting at
-  Gate X, awaiting human," then end the turn. Watcher firings and peer
+  Gate X, awaiting human," notify the human through the channels configured
+  in conventions (§4.9), then end the turn. Watcher firings and peer
   journals never cross a gate; only a human message does.
 - **No greenlight language from reviewers.** Technical agreement posts always
   include "this is not authorization to proceed; next actor: human." Never
@@ -175,7 +176,8 @@ findings before the dedup step.
 - The cursor (last-seen journal ID) lives outside the watcher's prompt text.
 - On any wake or resume: verify your watcher exists and your cursor is right.
 - Never end a turn awaiting the peer without a live watcher. Stall deadline →
-  nudge on the ticket (restating whose turn it is) → escalate to the human.
+  nudge on the ticket (restating whose turn it is) → escalate to the human
+  through the §4.9 channels.
 - Deleting your watcher while in an awaiting state is the one unrecoverable
   process error.
 
@@ -202,6 +204,29 @@ findings before the dedup step.
   data, not a participant.
 - **Reviewers never write or commit repo content.**
 - **Subagents never touch Redmine** (inherited from redmine-tracking).
+
+### 4.9 Human notification
+
+How the human is reached is a conventions setting, not a per-model choice.
+The collab section of `redmine-conventions.md` maps each event class to one
+or more channels, and both role skills use that mapping whenever they need
+the human:
+
+- Event classes: **gate reached**, **escalation** (stall deadline, round
+  budget exhausted, protocol violation, genuine scope/product decision),
+  and optionally **milestone** (phase completed — informational, off by
+  default).
+- Channels are whatever the human configured at onboarding — e.g. session
+  chat only (halt and wait), a push notification where the harness supports
+  it, or another mechanism the human names. The skills never invent a
+  channel.
+- Status-as-notification is constrained by redmine-tracking's transition
+  whitelist: Feedback is only reachable from In Progress, so design-phase
+  gates (ticket still New) must not attempt it. Channel notifications are
+  therefore the primary mechanism; status changes remain tracking's job.
+- Every notification, regardless of channel, has a durable twin: the ticket
+  post announcing the halt or escalation. The channel is how the human finds
+  out; the ticket is the record of what they will find.
 
 ## 5. `skills/redmine-coordinator/SKILL.md`
 
@@ -280,7 +305,12 @@ greenlight.
   accounts and typical count; signature line format; persona defaults per
   reviewer ordinal (menu, free-form, or none); recognized-commenters
   allowlist (platform + account); default gate configuration and round
-  budget. All become contract-template defaults, overridable per ticket.
+  budget; **human notification preferences** — a short series of questions
+  mapping each event class (gate reached, escalation, optional milestones)
+  to channels, proposing defaults from what the harness actually supports
+  (session chat always; push notification if available; anything else the
+  human names). All become contract-template defaults, overridable per
+  ticket.
 - **Write:** append the collab section to `redmine-conventions.md`, human
   approves, standalone commit on the default branch (the same sanctioned
   no-ticket write as base onboarding).
@@ -371,6 +401,13 @@ prod.
     Codex code-review bot) are real input — an external bot once caught what
     every internal reviewer missed — but hold no agreement standing and are
     never awaited.
+13. **Human notification as a conventions setting.** "Escalate to the human"
+    is meaningless if the human doesn't find out; the channel mapping is
+    interviewed at collab onboarding per event class rather than left to
+    each model's improvisation. Every channel notification has a durable
+    ticket-post twin, and status-as-notification is ruled out where
+    tracking's transition whitelist forbids it (Feedback is unreachable
+    from New).
 
 ## Appendix A — Ticket #156 journal #633, verbatim
 
