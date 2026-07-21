@@ -33,7 +33,7 @@ skills/
   redmine-reviewer/SKILL.md          (new — reviewer role)
   redmine-collab-onboarding/SKILL.md (new — optional setup, separate from base onboarding)
   shared/collab-protocol.md          (new — shared rulebook both role skills read at session start)
-  redmine-onboarding/SKILL.md        (one closing pointer line added, nothing else)
+  redmine-onboarding/SKILL.md        (pointer line + Collaboration ownership rule)
 redmine-conventions.template.md      (optional collab section added)
 ```
 
