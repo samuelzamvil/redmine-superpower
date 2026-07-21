@@ -64,7 +64,10 @@ Collaboration section:
    fabricated A/B authorization is repudiable before much damage is
    done. Default Gate C to ticket-posted where the human holds a Redmine
    account, and say why when asking: a fabricated Gate C authorization
-   survives repudiation — the merge already happened.
+   survives repudiation — the merge already happened. If the
+   `human_account` item was answered "chat only", do not offer
+   ticket-posted for any gate — it requires a rostered human account;
+   record `C: chat-quoted` and state why.
 9. `round_budget`: exchange rounds per phase before escalating
    (default: 8).
 10. `notification_map`: one or more channels per event class — gate,

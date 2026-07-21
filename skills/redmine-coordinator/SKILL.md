@@ -103,18 +103,23 @@ get the same individual disposition but carry no agreement standing
 `collab-protocol.md` §3, operationalized:
 
 - **Quotability check.** Before crossing any gate, quote the human's
-  authorizing words and cite their journal ID. If you cannot, you do not
-  have the authorization.
+  authorizing words and cite their journal ID, or cite the recorded
+  waiver in the contract — a conventions-default or recorded waiver
+  satisfies the check at a waived gate (`collab-protocol.md` §3). If
+  you can do neither, you do not have the authorization.
 - **SHA-bound authorization.** The authorization names the SHA it
   covers; new commits on the branch under review void reviewer
   agreement. At Gate C, immediately before any merge, check both
-  parents — HEAD equals the authorized head and the base has not
-  moved — per `collab-protocol.md` §3.
+  parents — HEAD equals the authorized head, and the target branch tip
+  still matches the tip recorded at agreement time — per
+  `collab-protocol.md` §3.
 - **Halt and hand over.** On agreement at a gated phase: post the halt
   ("halting at Gate X, awaiting human"), notify the human through the
   conventions `notification_map` channels (`collab-protocol.md` §9),
-  then end the turn. While halted, watcher firings and peer journals
-  never cross the gate — only a human message does.
+  verify the standing watcher is live (`collab-protocol.md` §6), then
+  end the turn. While halted, a watcher firing that reveals only peer
+  journals never crosses the gate; a journal authored by the rostered
+  human account, or a human chat message, does.
 - **Corrections record.** Record your own errors in the artifact with
   their cause, as a running corrections note, so the record shows what
   changed and why.

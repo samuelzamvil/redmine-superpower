@@ -58,7 +58,7 @@ redmine-conventions.template.md         Task 2  (modify — optional collab sect
 skills/redmine-coordinator/SKILL.md     Task 3  (new)
 skills/redmine-reviewer/SKILL.md        Task 4  (new)
 skills/redmine-collab-onboarding/SKILL.md  Task 5  (new)
-skills/redmine-onboarding/SKILL.md      Task 5  (modify — one pointer line)
+skills/redmine-onboarding/SKILL.md      Task 5  (modify — pointer line + Collaboration ownership rule)
                                         Task 6  (consistency sweep, no new files)
 ```
 
@@ -112,7 +112,7 @@ Roster:
 Phases: design → spec → plan → execution → PR/review
 Gates: A (post-design): on|waived · B (post-plan): on|waived · C (merge): on
 Authorization channel: A: <chat-quoted|ticket-posted> · B: <…> · C: <…>
-Cadence: dialogue <n> min · review <n> min · execution <n> min
+Cadence: dialogue <n> min · artifact review <n> min · execution <n> min · PR/CI <n> min
 Round budget: <n> per phase
 Preconditions: <ticket-specific, or "none">
 Recognized commenters: <list from conventions, or "none">
@@ -212,9 +212,10 @@ git commit -m "feat: add shared collaboration protocol rulebook"
   §4.8, §4.9, §7).
 - Produces: the collab section heading and **exact field names** that
   Tasks 3–5 reference: `coordinator_account`, `reviewer_accounts`,
-  `signature_format`, `persona_defaults`, `recognized_commenters`,
-  `gate_defaults`, `authorization_channels`, `round_budget`,
-  `notification_map`, `authoritative_files`, `reviewer_checkout`.
+  `human_account`, `signature_format`, `persona_defaults`,
+  `recognized_commenters`, `gate_defaults`, `authorization_channels`,
+  `round_budget`, `notification_map`, `authoritative_files`,
+  `reviewer_checkout`.
 
 - [ ] **Step 1: Read the existing template**
 
@@ -230,12 +231,13 @@ Append, matching the template's existing style, a section titled
 > onboarding never writes or edits it, and collab onboarding never edits
 > anything above it.
 
-Then the eleven fields from Produces, each with a placeholder value and a
+Then the twelve fields from Produces, each with a placeholder value and a
 one-line comment stating what it configures, e.g.:
 
 ```markdown
 - coordinator_account: <redmine login>        # posts contracts, artifacts, recaps
 - reviewer_accounts: <login> (1), <login> (2) # ordinal order is posting order
+- human_account: <redmine login|"chat only">  # the human's redmine login, or "chat only"
 - signature_format: <e.g. "— {model} ({role}{ordinal})">
 - persona_defaults: 1: <persona|none>, 2: <persona|none>
 - recognized_commenters: <platform>:<account>, ...   # advisory input, no standing
@@ -446,8 +448,8 @@ git commit -m "feat: add redmine-reviewer role skill"
 
 **Files:**
 - Create: `skills/redmine-collab-onboarding/SKILL.md`
-- Modify: `skills/redmine-onboarding/SKILL.md` (append one line to the
-  Report section, nothing else)
+- Modify: `skills/redmine-onboarding/SKILL.md` (pointer line in the
+  Report section + Collaboration ownership rule, nothing else)
 
 **Interfaces:**
 - Consumes: conventions field names (Task 2, written exactly); skill
@@ -474,7 +476,9 @@ is missing entirely, stop and point at `redmine-onboarding`.
 One question at a time, brainstorming style, proposing defaults from
 what is discoverable. The items, in order, writing exactly the Task 2
 field names: coordinator account; reviewer accounts and typical count
-(ordinal order = posting order); signature format; persona defaults per
+(ordinal order = posting order); the human's Redmine account or "chat
+only" (`human_account` — feeds the contract roster; a ticket-posted
+Gate C authorization requires it); signature format; persona defaults per
 ordinal (offer the protocol §5 menu, free-form or none allowed);
 recognized-commenters allowlist (platform + account); gate defaults
 (A/B on|waived — C is not askable, always on); per-gate authorization
@@ -500,7 +504,7 @@ account can see the project; the account can post a comment on a labeled
 fixture issue, write-then-read-back. Report ends WORKING / NEEDS ADMIN
 in base-onboarding style. Read/refusal paths never mutate.
 
-- [ ] **Step 4: Add the base-onboarding pointer line**
+- [ ] **Step 4: Add the base-onboarding pointer line and ownership rule**
 
 In `skills/redmine-onboarding/SKILL.md`, append to the end of the
 `## Report` section (after the "Do not proceed…" paragraph):
@@ -510,7 +514,10 @@ Optionally: to set up multi-model collaboration for this repo, run
 `redmine-collab-onboarding` once this verification passes clean.
 ```
 
-Nothing else in that file changes.
+Also add the Collaboration ownership rule: base onboarding preserves
+any `## Collaboration (optional)` section byte-for-byte — that section
+belongs to `redmine-collab-onboarding` exclusively and must never be
+presented as RE-VERIFY drift. Nothing else in that file changes.
 
 - [ ] **Step 5: Verify**
 

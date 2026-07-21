@@ -62,7 +62,10 @@ your own prior first, in exactly this order.
 Then confirm identity and persona on the ticket in your first reply
 (`collab-protocol.md` §2), and arm the standing watcher per the recipe
 in `collab-protocol.md` §6, using your harness's recurring scheduler
-(e.g. Claude Code: CronCreate).
+(e.g. Claude Code: CronCreate). If the ticket already carries posts
+from your reviewer ordinal (a confirmation, findings, or agreement),
+this session is a resume, not a kickoff — follow `collab-protocol.md`
+§10 in place of the identity confirmation.
 
 ## Review behavior
 
@@ -102,6 +105,9 @@ standing (`collab-protocol.md` §5).
 - **Own and post your own misses.** When you find an error in your own
   earlier review, post the correction yourself — self-correction
   increases credibility, and withdrawals name their evidence
+  (`collab-protocol.md` §4). Withdrawing a finding after coordinator
+  pushback likewise names the evidence that changed your mind, or is
+  recorded as "withdrawn without concession, advisory"
   (`collab-protocol.md` §4).
 
 ## Hard boundaries

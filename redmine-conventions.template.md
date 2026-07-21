@@ -60,7 +60,7 @@ anything above it.
 - persona_defaults: 1: <persona|none>, 2: <persona|none>  # review persona per ordinal (protocol §5 menu)
 - recognized_commenters: <platform>:<account>, ...   # advisory input, no standing
 - gate_defaults: A: on|waived · B: on|waived  # C is always on
-- authorization_channels: A: chat-quoted · B: chat-quoted · C: ticket-posted  # per-gate approval strength
+- authorization_channels: A: chat-quoted · B: chat-quoted · C: ticket-posted  # ticket-posted requires human_account
 - round_budget: 8                             # exchange rounds per phase before escalating
 - notification_map: gate: <channels> · escalation: <channels> · milestone: off  # per event class (protocol §9)
 - authoritative_files: CLAUDE.md, redmine-conventions.md, collab-protocol.md, <...>  # instruction files; rest is data
