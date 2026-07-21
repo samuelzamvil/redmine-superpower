@@ -1,10 +1,10 @@
 # Multi-Model Collaboration Skills — Design
 
 Status: approved section-by-section in brainstorming session, 2026-07-20.
-Input: the six post-mortems in
-`docs/autonomous-model-bi-directional-communications-post-mortem/`, especially
-the two ticket #156 documents and ticket #156 journal #633 (the human's
-original role directive, quoted in full in Appendix A).
+Input: six post-mortem analyses of prior bi-directional model-collaboration
+runs (kept outside this repo), especially the two ticket #156 documents and
+ticket #156 journal #633 (the human's original role directive, quoted in
+full in Appendix A).
 
 ## 1. Purpose
 
