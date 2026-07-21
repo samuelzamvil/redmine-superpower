@@ -146,12 +146,22 @@ RE-VERIFY mode gains a version step, running before the instance diff:
 
 1. Read the stamp for the section this skill owns.
 2. If it matches the current release, skip — no changelog read, no questions.
-3. On drift, read `CHANGELOG.md` from this skill's own folder and present
-   **only** the entries between the file's version and the current release.
-4. Interview for genuinely new fields only. Fields the file already has are not
+3. If it is **higher** than the current release, stop: report that this install
+   is older than the file, read no changelog, and write no stamp. A version is
+   never stamped backwards — doing so would erase the very signal that tells
+   the human their install is stale.
+4. On drift downward, read `CHANGELOG.md` from this skill's own folder and
+   present **only** the entries between the file's version and the current
+   release.
+5. Interview for genuinely new fields only. Fields the file already has are not
    re-asked; this is an upgrade, not a re-onboarding.
-5. Stamp the new release on write, following the existing standalone-commit rule
+6. Stamp the new release on write, following the existing standalone-commit rule
    (default branch, nothing else in the commit).
+
+Fresh mode stamps too: both skills write their stamp as the first field of the
+section they own, taking the value from their own `Release:` line rather than
+from the template. Without this a newly onboarded file would carry no stamp and
+report itself stale on the very next session.
 
 If the changelog is missing or unreadable, report it and **do not bump the
 stamp**. A repeated warning is a better failure than a silent false "up to
