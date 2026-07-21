@@ -116,8 +116,10 @@ its title. `redmine-conventions.md` records the version it was written under:
 `conventions_version:` for the base mappings, `collab_version:` inside the
 Collaboration section.
 
-When they diverge, `redmine-tracking` says so once at session start and names
-the skill to re-run. It never blocks work. Re-running that skill reads its
+When they diverge, `redmine-tracking` says so at session start — at most one
+line per stale section — and names the skill to re-run. If your file is newer
+than your installed skills, it says that instead: update the install rather
+than re-running anything. It never blocks work. Re-running that skill reads its
 `CHANGELOG.md`, shows only what changed between your version and the current
 one, and asks only about genuinely new fields — it is an upgrade, not a
 re-onboarding.

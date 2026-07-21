@@ -18,8 +18,10 @@ at the repo root. Everything else is verification and reporting.
   structure against the file, present the diff, and update ONLY what the
   human approves. Never edit on your own initiative.
 
-**Collaboration section ownership.** If the file contains a
-`## Collaboration (optional)` section, preserve it byte-for-byte. This
+**Collaboration section ownership.** If the file contains any section whose
+heading begins `## Collaboration`, preserve it byte-for-byte. Match the
+heading loosely: a section written before v1 may not carry the `(optional)`
+suffix, and it is protected all the same. This
 skill owns only the base conventions above it and never creates, edits,
 reorders, or deletes the Collaboration section — that section belongs to
 `redmine-collab-onboarding` exclusively. A RE-VERIFY diff must never
@@ -79,9 +81,11 @@ IDs, anything queryable at runtime. Structural mappings only.
    the base conventions. If the file already exists (RE-VERIFY), merge the
    approved base-field changes into it rather than regenerating the whole
    file, so an existing Collaboration section survives untouched.
-   Write `conventions_version:` as the first field, set to this skill's
-   declared release — take that value from the `Release:` line at the top of
-   this file, never from the template, so a fresh file is never born stale.
+   In FRESH mode, write `conventions_version:` as the first field, set to this
+   skill's declared release — take that value from the `Release:` line at the
+   top of this file, never from the template, so a fresh file is never born
+   stale. In RE-VERIFY mode the Version step above already governs the stamp;
+   write none here.
 2. Show it to the human for approval.
 3. Commit it as a STANDALONE commit on the DEFAULT branch — nothing else
    in the commit, never on a work branch, never bundled with other work.

@@ -124,9 +124,10 @@ runtime. These answers are the contract-template defaults.
 
 1. Append the Collaboration section to `redmine-conventions.md` from
    the template, with the answers. Touch nothing above it.
-   Write `collab_version:` as the first field of the section, set to this
-   skill's declared release — take that value from the `Release:` line at the
-   top of this file, never from the template.
+   In FRESH mode, write `collab_version:` as the first field of the section,
+   set to this skill's declared release — take that value from the `Release:`
+   line at the top of this file, never from the template. In RE-VERIFY mode the
+   Version step above already governs the stamp; write none here.
 2. Show it to the human for approval.
 3. Commit it as a STANDALONE commit on the DEFAULT branch — nothing
    else in the commit, never on a work branch, never bundled with other
