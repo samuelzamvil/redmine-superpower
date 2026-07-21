@@ -26,6 +26,30 @@ reorders, or deletes the Collaboration section — that section belongs to
 present the Collaboration section as drift, even though it maps to no
 instance structure this skill probes.
 
+## Version step (RE-VERIFY only, before the instance diff)
+
+1. Scan `redmine-conventions.md` for a `conventions_version:` line. Scan the
+   WHOLE file — pre-v1 files predate the current template, so do not assume a
+   position, a fenced block, or the template's field names.
+2. If it equals this skill's declared release, SKIP this section entirely. Do
+   not open `CHANGELOG.md`; do not raise the subject with the human.
+3. Otherwise read `CHANGELOG.md` from this skill's own folder and present ONLY
+   the entries between the file's version (absent means pre-v1) and this
+   release.
+4. Interview for fields those entries introduce and the file lacks. Never
+   re-ask a field the file already answers — this is an upgrade, not a
+   re-onboarding.
+5. Write `conventions_version: <release>` along with any approved changes,
+   under the standalone-commit rule below. Preserve the file's existing style;
+   do not reformat a pre-v1 file into the template.
+
+If `CHANGELOG.md` is missing or unreadable, say so and do NOT write a version
+stamp. A repeated warning next session is a better failure than a silent false
+"up to date".
+
+Stamp only `conventions_version:`. The Collaboration section's `collab_version:`
+belongs to `redmine-collab-onboarding` and is never touched here.
+
 ## Fresh mode: interview
 
 Brainstorming style — one question at a time, propose defaults from what

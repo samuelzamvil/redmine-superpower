@@ -35,6 +35,30 @@ by copying, `shared/` must have been copied alongside the skill folders.
   update ONLY what the human approves. Never edit on your own
   initiative.
 
+## Version step (RE-VERIFY only, before the instance diff)
+
+1. Scan the `## Collaboration (optional)` section for a `collab_version:` line.
+   Scan the whole section — a pre-v1 section may not follow the current
+   template's layout.
+2. If it equals this skill's declared release, SKIP this section entirely. Do
+   not open `CHANGELOG.md`; do not raise the subject with the human.
+3. Otherwise read `CHANGELOG.md` from this skill's own folder and present ONLY
+   the entries between the section's version (absent means pre-v1) and this
+   release.
+4. Interview for fields those entries introduce and the section lacks. Never
+   re-ask a field the section already answers — this is an upgrade, not a
+   re-onboarding.
+5. Write `collab_version: <release>` along with any approved changes, under the
+   standalone-commit rule below.
+
+If `CHANGELOG.md` is missing or unreadable, say so and do NOT write a version
+stamp. A repeated warning next session is a better failure than a silent false
+"up to date".
+
+Stamp only `collab_version:`, inside the Collaboration section. Everything above
+that section — including `conventions_version:` — belongs to
+`redmine-onboarding` and is never touched here.
+
 ## Fresh mode: interview
 
 Brainstorming style — one question at a time, propose defaults from what
