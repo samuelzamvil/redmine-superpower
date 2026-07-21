@@ -3,6 +3,17 @@
 A public bolt-on for [superpowers](https://github.com/obra/superpowers) that
 turns a Redmine instance into the memory for your superpowers workflow.
 
+> **⚠️ Status: experiment, not an endorsement.** This is a personal experiment,
+> published in the open so others can follow along — not a recommendation to
+> adopt it. **Initial impressions are still out:** I'm partway through
+> onboarding, which is a long process, and I don't yet have enough real usage
+> to say whether the approach holds up.
+>
+> What I can report so far: the Redmine MCP is **slow** — operations take a
+> while — but so far it has been **consistent and error-free**. I'm also
+> running an **old Redmine 5** instance, whereas the skills target the 6.x
+> status defaults; expect rough edges until this is exercised against 6.x.
+
 **The inversion:** superpowers is the workflow; Redmine is its memory. One
 skill watches which superpowers skill is active and does the right ticket
 bookkeeping as a side effect — status follows phase, comments accrue as work
@@ -10,7 +21,7 @@ happens, and you are never asked to push paper. It never gates development to
 update a ticket, and it never asks a question superpowers wouldn't have
 stopped for anyway.
 
-Two skills ship here:
+Five skills ship here. Two are the core:
 
 - **`redmine-tracking`** — the runtime skill. Reads a per-repo conventions
   file, then mirrors each superpowers phase (brainstorm → plan → execute →
@@ -20,6 +31,15 @@ Two skills ship here:
   pair. Interviews you, writes `redmine-conventions.md` at the repo root,
   and verifies the instance from the agent account — reporting anything only
   an admin can fix.
+
+Three more are optional, for running two models against one ticket:
+
+- **`redmine-collab-onboarding`** — appends the Collaboration section to your
+  conventions file and verifies each declared agent account.
+- **`redmine-coordinator`** — runs the superpowers workflow while routing
+  questions to model reviewers through the ticket journal.
+- **`redmine-reviewer`** — builds an independent prior and challenges the
+  coordinator's claims through ticket comments.
 
 See [`docs/design.md`](docs/design.md) for the full rationale and the signed
 decisions log.
@@ -47,12 +67,17 @@ project sees them) or per-repo.
 ```bash
 git clone https://github.com/samuelzamvil/redmine-superpower
 cd redmine-superpower
-ln -s "$(pwd)/skills/redmine-onboarding" ~/.claude/skills/redmine-onboarding
-ln -s "$(pwd)/skills/redmine-tracking"   ~/.claude/skills/redmine-tracking
+for s in redmine-onboarding redmine-tracking redmine-collab-onboarding \
+         redmine-coordinator redmine-reviewer; do
+  ln -s "$(pwd)/skills/$s" ~/.claude/skills/"$s"
+done
 ```
 
-**Per-repo (scoped to one consuming repo):** copy the two skill folders into
-that repo's `.claude/skills/`.
+**Per-repo (scoped to one consuming repo):** copy the skill folders you want
+into that repo's `.claude/skills/`. If you copy any of the three collaboration
+skills, copy `skills/shared/` alongside them — they read
+`shared/collab-protocol.md`. Symlink installs resolve it automatically from the
+link's real path, so it needs no separate link.
 
 Personal skills live at `~/.claude/skills/<name>/SKILL.md`; project skills at
 `.claude/skills/<name>/SKILL.md`. A plugin package may come later.
@@ -83,6 +108,30 @@ the one artifact onboarding produces. It holds only the structural mappings
 that aren't discoverable from the API (which tracker/status plays each role,
 custom field names, branch pattern). Live data — the Epic list, issue IDs —
 is always queried fresh and never written to the file.
+
+## Versioning
+
+Each skill declares a **conventions schema version** — the `Release:` line under
+its title. `redmine-conventions.md` records the version it was written under:
+`conventions_version:` for the base mappings, `collab_version:` inside the
+Collaboration section.
+
+When they diverge, `redmine-tracking` says so once at session start and names
+the skill to re-run. It never blocks work. Re-running that skill reads its
+`CHANGELOG.md`, shows only what changed between your version and the current
+one, and asks only about genuinely new fields — it is an upgrade, not a
+re-onboarding.
+
+Files written before versioning existed carry no stamp. They are treated as
+pre-v1 and upgraded the same way; your file's existing format is preserved
+rather than rewritten into the template.
+
+A repo with no Collaboration section is never reported as stale. Collaboration
+is opt-in, and its absence is a choice.
+
+This schema version is deliberately separate from the package version: it bumps
+only when the onboarding interview changes, so a release that touches only
+wording never prompts a pointless re-onboarding.
 
 ## License
 
