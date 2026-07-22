@@ -1,14 +1,17 @@
 name: release
 
-# Push a tag like v1.0.0 to build one direct-import zip per plugin and attach
-# them to a GitHub Release. Each zip has the plugin DIRECTORY at its top level
+# Fully automatic. On every push to main, each plugin whose manifest `version`
+# has not been released yet is built and published — no manual tagging. Bump a
+# plugin's version, merge, and CI cuts the release. Merges that don't change a
+# version publish nothing (the version's tag already exists).
+#
+# Each zip has the plugin DIRECTORY at its top level
 # (e.g. redmine-superpower/.claude-plugin/plugin.json), which is the shape
 # `claude --plugin-dir ./x.zip` and `--plugin-url https://.../x.zip` expect.
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [main]
 
 permissions:
   contents: write
@@ -32,24 +35,25 @@ jobs:
           claude plugin validate ./plugins/redmine-superpower --strict
           claude plugin validate ./plugins/redmine-superpower-quorum --strict
 
-      - name: Build direct-import zips
-        run: |
-          set -euo pipefail
-          VERSION="${GITHUB_REF_NAME}"   # e.g. v1.0.0
-          mkdir -p dist
-          # zip from inside plugins/ so the plugin directory sits at the zip root
-          for plugin in redmine-superpower redmine-superpower-quorum; do
-            ( cd plugins && zip -r "../dist/${plugin}-${VERSION}.zip" "$plugin" )
-          done
-          echo "--- built ---"
-          ls -l dist
-          echo "--- top level of base zip ---"
-          unzip -l "dist/redmine-superpower-${VERSION}.zip" | head -n 15
-
-      - name: Create GitHub Release and attach zips
+      - name: Publish any plugin whose version isn't released yet
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" dist/*.zip \
-            --title "${GITHUB_REF_NAME}" \
-            --generate-notes
+          set -euo pipefail
+          mkdir -p dist
+          for plugin in redmine-superpower redmine-superpower-quorum; do
+            version="$(node -p "require('./plugins/${plugin}/.claude-plugin/plugin.json').version")"
+            tag="${plugin}-v${version}"
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "· ${tag} already released — skipping"
+              continue
+            fi
+            echo "· publishing ${tag}"
+            # zip from inside plugins/ so the plugin directory sits at the zip root
+            ( cd plugins && zip -qr "../dist/${plugin}-v${version}.zip" "$plugin" )
+            unzip -l "dist/${plugin}-v${version}.zip" | head -n 8
+            # `gh release create` creates the tag at this commit
+            gh release create "$tag" "dist/${plugin}-v${version}.zip" \
+              --title "$tag" \
+              --generate-notes
+          done

@@ -92,11 +92,14 @@ install of the add-on auto-installs the base (no marketplace name needed).
   duplicate names, path traversal) plus `claude plugin validate
   ./plugins/<name> --strict` for each plugin (manifest + SKILL.md frontmatter).
   No publish.
-- **`release.yml`** (tag `v*`): re-run validation, then build **one zip per
-  plugin** with the plugin **directory at the zip's top level** —
-  `redmine-superpower-v1.0.0.zip` contains `redmine-superpower/.claude-plugin/plugin.json`
-  — and attach both zips to a GitHub Release for the tag. This is the shape
-  `claude --plugin-dir ./x.zip` / `--plugin-url` expects.
+- **`release.yml`** (push to `main`): re-run validation, then for each plugin
+  read its manifest `version` and, when `<plugin>-v<version>` is not yet
+  released, build a zip with the plugin **directory at the zip's top level** —
+  `redmine-superpower-v1.0.0.zip` contains
+  `redmine-superpower/.claude-plugin/plugin.json` — and publish a GitHub Release
+  (which creates the tag). Fully automatic: bump a plugin's version, merge, and
+  CI cuts the release; merges that touch no version publish nothing. This zip
+  shape is what `claude --plugin-dir ./x.zip` / `--plugin-url` expects.
 
 ## README
 
@@ -116,5 +119,6 @@ fits the plugin layout (the resolution mechanism is unchanged).
 
 ## Out of scope
 
-No auto-publish on every push (tags only), no skill-logic or conventions-schema
-changes, no GitHub repo rename, `docs/` and `.superpowers/` untouched.
+Releases are version-gated auto-publishes on merge to `main` (no manual tags);
+no skill-logic or conventions-schema changes, no GitHub repo rename, `docs/` and
+`.superpowers/` untouched.
