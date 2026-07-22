@@ -31,46 +31,37 @@ jobs:
 
       - name: Validate before packaging
         run: |
+          set -euo pipefail
           claude plugin validate . --strict
-          claude plugin validate ./plugins/redmine-superpower --strict
-          claude plugin validate ./plugins/redmine-superpower-quorum --strict
+          mapfile -t dirs < <(node -e "require('./.claude-plugin/marketplace.json').plugins.forEach(p=>console.log(p.source.replace(/^\.\//,'')))")
+          for dir in "${dirs[@]}"; do claude plugin validate "./${dir}" --strict; done
 
       - name: Publish any plugin whose version isn't released yet
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          root="$PWD"
           mkdir -p dist
-          for plugin in redmine-superpower redmine-superpower-quorum; do
-            version="$(node -p "require('./plugins/${plugin}/.claude-plugin/plugin.json').version")"
-            tag="${plugin}-v${version}"
+          # Discover plugins from the marketplace catalog. Adding a plugin there
+          # is all it takes — no edit to this file.
+          mapfile -t entries < <(node -e "require('./.claude-plugin/marketplace.json').plugins.forEach(p=>console.log(p.name+'\t'+p.source))")
+          if [ "${#entries[@]}" -eq 0 ]; then echo "no plugins in marketplace.json"; exit 1; fi
+          for entry in "${entries[@]}"; do
+            name="${entry%%$'\t'*}"
+            source="${entry#*$'\t'}"
+            dir="${source#./}"                                   # ./plugins/x -> plugins/x
+            version="$(node -p "require('./${dir}/.claude-plugin/plugin.json').version")"
+            tag="${name}-v${version}"
             if gh release view "$tag" >/dev/null 2>&1; then
               echo "· ${tag} already released — skipping"
               continue
             fi
             echo "· publishing ${tag}"
-            # zip from inside plugins/ so the plugin directory sits at the zip root
-            zip="dist/${plugin}-v${version}.zip"
-            ( cd plugins && zip -qr "../${zip}" "$plugin" )
+            zip="${root}/dist/${name}-v${version}.zip"
+            # zip from the plugin's parent so the plugin DIRECTORY sits at the zip root
+            ( cd "$(dirname "$dir")" && zip -qr "$zip" "$(basename "$dir")" )
             unzip -l "$zip" | head -n 8
-
-            # Release notes: the CHANGELOG section for this version, else auto.
-            changelog="plugins/${plugin}/CHANGELOG.md"
-            notes="dist/${plugin}-notes.md"
-            if [ -f "$changelog" ] && awk -v ver="$version" '
-                /^## / {
-                  if (found) exit
-                  h = $0; sub(/^## +/, "", h); gsub(/[][]/, "", h)
-                  split(h, a, /[ \t]+/)
-                  if (a[1] == ver) { found = 1; next }
-                }
-                found { print }
-              ' "$changelog" > "$notes" && [ -s "$notes" ]; then
-              echo "  notes: from ${changelog} (## ${version})"
-              # `gh release create` creates the tag at this commit
-              gh release create "$tag" "$zip" --title "$tag" --notes-file "$notes"
-            else
-              echo "  notes: auto-generated (no ## ${version} section found)"
-              gh release create "$tag" "$zip" --title "$tag" --generate-notes
-            fi
+            # `gh release create` creates the tag at this commit; notes auto-generated
+            gh release create "$tag" "$zip" --title "$tag" --generate-notes
           done

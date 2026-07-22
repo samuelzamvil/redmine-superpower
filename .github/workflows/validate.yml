@@ -25,8 +25,14 @@ jobs:
       - name: Validate marketplace (schema, duplicate names, path traversal)
         run: claude plugin validate . --strict
 
-      - name: Validate base plugin
-        run: claude plugin validate ./plugins/redmine-superpower --strict
-
-      - name: Validate quorum plugin
-        run: claude plugin validate ./plugins/redmine-superpower-quorum --strict
+      - name: Validate every plugin in the catalog
+        run: |
+          set -euo pipefail
+          # Discover plugins from marketplace.json, so a newly added plugin is
+          # validated automatically with no change to this workflow.
+          mapfile -t dirs < <(node -e "require('./.claude-plugin/marketplace.json').plugins.forEach(p=>console.log(p.source.replace(/^\.\//,'')))")
+          if [ "${#dirs[@]}" -eq 0 ]; then echo "no plugins in marketplace.json"; exit 1; fi
+          for dir in "${dirs[@]}"; do
+            echo "· validating ./${dir}"
+            claude plugin validate "./${dir}" --strict
+          done

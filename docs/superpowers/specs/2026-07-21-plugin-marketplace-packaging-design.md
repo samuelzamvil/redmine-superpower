@@ -34,13 +34,11 @@ redmine-superpower/
 ├── plugins/
 │   ├── redmine-superpower/              # BASE
 │   │   ├── .claude-plugin/plugin.json
-│   │   ├── CHANGELOG.md                 # package release notes → GH Release
 │   │   └── skills/
 │   │       ├── redmine-onboarding/      # (+ its own schema CHANGELOG.md)
 │   │       └── redmine-tracking/
 │   └── redmine-superpower-quorum/       # ADD-ON (depends on base)
 │       ├── .claude-plugin/plugin.json
-│       ├── CHANGELOG.md                 # package release notes → GH Release
 │       └── skills/
 │           ├── redmine-collab-onboarding/  # (+ CHANGELOG.md)
 │           ├── redmine-coordinator/
@@ -102,10 +100,9 @@ install of the add-on auto-installs the base (no marketplace name needed).
   (which creates the tag). Fully automatic: bump a plugin's version, merge, and
   CI cuts the release; merges that touch no version publish nothing. This zip
   shape is what `claude --plugin-dir ./x.zip` / `--plugin-url` expects. Release
-  notes come from the `## <version>` section of the plugin's package
-  `CHANGELOG.md`; if there is no matching section, CI falls back to
-  auto-generated notes. This package changelog is distinct from the per-skill
-  conventions-schema `CHANGELOG.md` files.
+  notes are auto-generated (`gh release create --generate-notes`). Both CI jobs
+  discover plugins from `marketplace.json`, so adding a plugin needs no workflow
+  edit.
 
 ## README
 
