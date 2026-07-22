@@ -61,7 +61,7 @@ decisions log.
 
 ## Install
 
-Two plugins ship from this repo's marketplace (`samz`):
+Two plugins ship from this repo's marketplace (`samuelzamvil`):
 
 - **`redmine-superpower`** — the base: `redmine-onboarding` + `redmine-tracking`.
 - **`redmine-superpower-quorum`** — the multi-model add-on:
@@ -72,8 +72,8 @@ Two plugins ship from this repo's marketplace (`samz`):
 
 ```bash
 /plugin marketplace add samuelzamvil/redmine-superpower
-/plugin install redmine-superpower@samz          # base only
-/plugin install redmine-superpower-quorum@samz   # add-on + base
+/plugin install redmine-superpower@samuelzamvil          # base only
+/plugin install redmine-superpower-quorum@samuelzamvil   # add-on + base
 ```
 
 Or run `marketplace add`, then browse and click through the interactive

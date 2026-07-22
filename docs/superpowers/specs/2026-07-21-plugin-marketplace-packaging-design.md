@@ -18,8 +18,8 @@ monorepo structure keeps them physically separate so neither can be built wrong.
     `redmine-coordinator`, `redmine-reviewer`, plus `skills/shared/`. Declares
     the base as a dependency, so a marketplace install of the add-on pulls in
     the base automatically.
-- **Marketplace handle:** `samz` (the publisher). Install lines read
-  `redmine-superpower@samz` and `redmine-superpower-quorum@samz`.
+- **Marketplace handle:** `samuelzamvil` (the publisher). Install lines read
+  `redmine-superpower@samuelzamvil` and `redmine-superpower-quorum@samuelzamvil`.
 - **Version:** both plugins ship at `1.0.0`, matching every skill's
   `Release: 1` conventions-schema line. No increment — no skill logic changes.
 - **Layout:** monorepo. Marketplace manifest at repo root; each plugin in its
@@ -34,11 +34,13 @@ redmine-superpower/
 ├── plugins/
 │   ├── redmine-superpower/              # BASE
 │   │   ├── .claude-plugin/plugin.json
+│   │   ├── CHANGELOG.md                 # package release notes → GH Release
 │   │   └── skills/
-│   │       ├── redmine-onboarding/      # (+ CHANGELOG.md)
+│   │       ├── redmine-onboarding/      # (+ its own schema CHANGELOG.md)
 │   │       └── redmine-tracking/
 │   └── redmine-superpower-quorum/       # ADD-ON (depends on base)
 │       ├── .claude-plugin/plugin.json
+│       ├── CHANGELOG.md                 # package release notes → GH Release
 │       └── skills/
 │           ├── redmine-collab-onboarding/  # (+ CHANGELOG.md)
 │           ├── redmine-coordinator/
@@ -50,7 +52,7 @@ redmine-superpower/
 ├── README.md   LICENSE   .gitignore
 └── .github/workflows/
     ├── validate.yml                     # PR / push validation, no publish
-    └── release.yml                      # tag v* → build zips + GitHub Release
+    └── release.yml                      # push to main → version-gated publish
 ```
 
 The only content moves are the `skills/*` folders into the two
@@ -65,7 +67,7 @@ unchanged.
 
 ```json
 {
-  "name": "samz",
+  "name": "samuelzamvil",
   "owner": { "name": "Samuel Zamvil" },
   "metadata": { "description": "Samuel Zamvil's Claude Code plugins." },
   "plugins": [
@@ -99,14 +101,18 @@ install of the add-on auto-installs the base (no marketplace name needed).
   `redmine-superpower/.claude-plugin/plugin.json` — and publish a GitHub Release
   (which creates the tag). Fully automatic: bump a plugin's version, merge, and
   CI cuts the release; merges that touch no version publish nothing. This zip
-  shape is what `claude --plugin-dir ./x.zip` / `--plugin-url` expects.
+  shape is what `claude --plugin-dir ./x.zip` / `--plugin-url` expects. Release
+  notes come from the `## <version>` section of the plugin's package
+  `CHANGELOG.md`; if there is no matching section, CI falls back to
+  auto-generated notes. This package changelog is distinct from the per-skill
+  conventions-schema `CHANGELOG.md` files.
 
 ## README
 
 Rewrite the install section, in order:
 
 1. **Marketplace** — `marketplace add samuelzamvil/redmine-superpower`, then the
-   two `@samz` install lines; note the add-on pulls in the base.
+   two `@samuelzamvil` install lines; note the add-on pulls in the base.
 2. **Direct zip import** — download from Releases, `--plugin-dir`/`--plugin-url`;
    caveat that zip loading is single-session with **no dependency resolution**,
    so quorum users load **both** zips.

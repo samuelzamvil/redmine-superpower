@@ -50,10 +50,27 @@ jobs:
             fi
             echo "· publishing ${tag}"
             # zip from inside plugins/ so the plugin directory sits at the zip root
-            ( cd plugins && zip -qr "../dist/${plugin}-v${version}.zip" "$plugin" )
-            unzip -l "dist/${plugin}-v${version}.zip" | head -n 8
-            # `gh release create` creates the tag at this commit
-            gh release create "$tag" "dist/${plugin}-v${version}.zip" \
-              --title "$tag" \
-              --generate-notes
+            zip="dist/${plugin}-v${version}.zip"
+            ( cd plugins && zip -qr "../${zip}" "$plugin" )
+            unzip -l "$zip" | head -n 8
+
+            # Release notes: the CHANGELOG section for this version, else auto.
+            changelog="plugins/${plugin}/CHANGELOG.md"
+            notes="dist/${plugin}-notes.md"
+            if [ -f "$changelog" ] && awk -v ver="$version" '
+                /^## / {
+                  if (found) exit
+                  h = $0; sub(/^## +/, "", h); gsub(/[][]/, "", h)
+                  split(h, a, /[ \t]+/)
+                  if (a[1] == ver) { found = 1; next }
+                }
+                found { print }
+              ' "$changelog" > "$notes" && [ -s "$notes" ]; then
+              echo "  notes: from ${changelog} (## ${version})"
+              # `gh release create` creates the tag at this commit
+              gh release create "$tag" "$zip" --title "$tag" --notes-file "$notes"
+            else
+              echo "  notes: auto-generated (no ## ${version} section found)"
+              gh release create "$tag" "$zip" --title "$tag" --generate-notes
+            fi
           done
