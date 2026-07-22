@@ -5,6 +5,8 @@ description: Use when the human starts a reviewer session for a collaborative ti
 
 # Redmine Reviewer
 
+**Release:** 1 (conventions schema version)
+
 ## Core principle
 
 Build an independent prior from the tracker and codebase; challenge the

@@ -5,6 +5,8 @@ description: Use when setting up redmine-tracking for a repo for the first time,
 
 # Redmine Onboarding
 
+**Release:** 1 (conventions schema version — see `CHANGELOG.md` in this folder)
+
 Run once per repo/instance pair, and again only after structural changes to
 the Redmine instance. Produces exactly one artifact: `redmine-conventions.md`
 at the repo root. Everything else is verification and reporting.
@@ -16,13 +18,43 @@ at the repo root. Everything else is verification and reporting.
   structure against the file, present the diff, and update ONLY what the
   human approves. Never edit on your own initiative.
 
-**Collaboration section ownership.** If the file contains a
-`## Collaboration (optional)` section, preserve it byte-for-byte. This
+**Collaboration section ownership.** If the file contains any section whose
+heading begins `## Collaboration`, preserve it byte-for-byte. Match the
+heading loosely: a section written before v1 may not carry the `(optional)`
+suffix, and it is protected all the same. This
 skill owns only the base conventions above it and never creates, edits,
 reorders, or deletes the Collaboration section — that section belongs to
 `redmine-collab-onboarding` exclusively. A RE-VERIFY diff must never
 present the Collaboration section as drift, even though it maps to no
 instance structure this skill probes.
+
+## Version step (RE-VERIFY only, before the instance diff)
+
+1. Scan `redmine-conventions.md` for a `conventions_version:` line. Scan the
+   WHOLE file — pre-v1 files predate the current template, so do not assume a
+   position, a fenced block, or the template's field names.
+2. If it equals this skill's declared release, SKIP this section entirely. Do
+   not open `CHANGELOG.md`; do not raise the subject with the human.
+3. If the file's version is HIGHER than this skill's declared release, STOP
+   the version step here: report that this install is older than the file, do
+   not read `CHANGELOG.md`, and do not write a stamp. Continue to the instance
+   diff. Never stamp a version backwards.
+4. Otherwise read `CHANGELOG.md` from this skill's own folder and present ONLY
+   the entries between the file's version (absent means pre-v1) and this
+   release.
+5. Interview for fields those entries introduce and the file lacks. Never
+   re-ask a field the file already answers — this is an upgrade, not a
+   re-onboarding.
+6. Write `conventions_version: <release>` along with any approved changes,
+   under the standalone-commit rule below. Preserve the file's existing style;
+   do not reformat a pre-v1 file into the template.
+
+If `CHANGELOG.md` is missing or unreadable, say so and do NOT write a version
+stamp. A repeated warning next session is a better failure than a silent false
+"up to date".
+
+Stamp only `conventions_version:`. The Collaboration section's `collab_version:`
+belongs to `redmine-collab-onboarding` and is never touched here.
 
 ## Fresh mode: interview
 
@@ -49,6 +81,11 @@ IDs, anything queryable at runtime. Structural mappings only.
    the base conventions. If the file already exists (RE-VERIFY), merge the
    approved base-field changes into it rather than regenerating the whole
    file, so an existing Collaboration section survives untouched.
+   In FRESH mode, write `conventions_version:` as the first field, set to this
+   skill's declared release — take that value from the `Release:` line at the
+   top of this file, never from the template, so a fresh file is never born
+   stale. In RE-VERIFY mode the Version step above already governs the stamp;
+   write none here.
 2. Show it to the human for approval.
 3. Commit it as a STANDALONE commit on the DEFAULT branch — nothing else
    in the commit, never on a work branch, never bundled with other work.
@@ -81,8 +118,9 @@ changes without applying them, so every probe is write-then-read-back.
 End with two lists:
 - WORKING: what was verified.
 - NEEDS ADMIN: anything only the admin web UI can fix (trackers, statuses,
-  custom fields, roles, workflow grid, instance settings — the REST API
-  cannot create or modify any of these), phrased as concrete steps.
+  custom fields, roles, workflow grid, instance settings — the agent's
+  non-admin API access cannot create or modify any of these), phrased as
+  concrete steps.
 
 Do not proceed to normal tracking work in the same session unless the
 verification passed clean or the human explicitly says to continue.

@@ -5,6 +5,8 @@ description: Use whenever any superpowers skill is active in a session that modi
 
 # Redmine Tracking for Superpowers
 
+**Release:** 1 (conventions schema version)
+
 ## Core principle
 
 Superpowers is the workflow; Redmine is its memory. This skill watches which
@@ -33,6 +35,35 @@ blocked / ceiling / rejected / closed), custom field names, branch pattern.
 - LIVE DATA never comes from the file: the Epic list is whatever exists in
   Redmine with the epic-role tracker, queried fresh. Adding an Epic in
   Redmine requires no conventions change.
+
+## Version check (advisory, at the conventions read)
+
+This skill declares its release at the top of this file. `redmine-conventions.md`
+records the release it was written under. Compare them while reading the
+conventions, emit the advisory below, then carry on.
+
+This check NEVER gates work and NEVER opens a changelog. Naming the skill to
+re-run is its entire job.
+
+Find the stamps by scanning the file for a `conventions_version:` line, and —
+only within a `## Collaboration` section — a `collab_version:` line. Do not
+assume the template's layout: files written before v1 predate that template and
+may use prose, tables, or different field names.
+
+| File state | Say |
+| --- | --- |
+| No `conventions_version:` found | "Conventions predate v1. Run `redmine-onboarding` to update." |
+| `conventions_version:` lower than this release | "Conventions at vN, skills at vM. Run `redmine-onboarding` to update." |
+| `conventions_version:` higher than this release | "Conventions at vN, skills at vM — this install is older than the file. Update the installed skills." |
+| No `## Collaboration` section at all | Say NOTHING. Absence is opt-out, not drift. |
+| Collaboration section present, no `collab_version:` found | "Collaboration section predates v1. Run `redmine-collab-onboarding` to update." |
+| Collaboration section present, `collab_version:` lower than this release | "Collaboration section at vN, skills at vM. Run `redmine-collab-onboarding` to update." |
+| Collaboration section present, `collab_version:` higher than this release | "Collaboration section at vN, skills at vM — this install is older than the file. Update the installed skills." |
+| Conventions file missing or unreadable | Existing behavior above. Add nothing here. |
+
+At most one line per section, at most once per session — a repo can be stale in
+both the base and the Collaboration section, which is two lines total, said
+once. Never repeat them later in the session.
 
 ## The ticket rule
 

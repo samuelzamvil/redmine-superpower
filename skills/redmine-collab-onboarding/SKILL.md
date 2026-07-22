@@ -5,6 +5,8 @@ description: Use when the human wants to set up multi-model collaboration for a 
 
 # Redmine Collab Onboarding
 
+**Release:** 1 (conventions schema version — see `CHANGELOG.md` in this folder)
+
 Run once per repo, after base onboarding passes clean. Optional: repos
 that never run two models never need it. Produces exactly one artifact:
 the `## Collaboration (optional)` section of `redmine-conventions.md`.
@@ -26,12 +28,43 @@ by copying, `shared/` must have been copied alongside the skill folders.
 - Precondition first: no `redmine-conventions.md` in the repo → stop.
   Base onboarding has not run; point the human at `redmine-onboarding`
   and do nothing here.
-- File exists but has no `## Collaboration (optional)` section → FRESH
-  mode.
+- File exists but has no section whose heading begins `## Collaboration` →
+  FRESH mode. Match the heading loosely: a section written before v1 may not
+  carry the `(optional)` suffix, and appending a second Collaboration section
+  to such a file would corrupt it.
 - Section exists → RE-VERIFY mode: probe the instance from each declared
   account, diff what you find against the section, present the diff, and
   update ONLY what the human approves. Never edit on your own
   initiative.
+
+## Version step (RE-VERIFY only, before the instance diff)
+
+1. Scan the section whose heading begins `## Collaboration` for a `collab_version:` line.
+   Scan the whole section — a pre-v1 section may not follow the current
+   template's layout.
+2. If it equals this skill's declared release, SKIP this section entirely. Do
+   not open `CHANGELOG.md`; do not raise the subject with the human.
+3. If the section's version is HIGHER than this skill's declared release, STOP
+   the version step here: report that this install is older than the file, do
+   not read `CHANGELOG.md`, and do not write a stamp. Continue to the instance
+   diff. Never stamp a version backwards.
+4. Otherwise read `CHANGELOG.md` from this skill's own folder and present ONLY
+   the entries between the section's version (absent means pre-v1) and this
+   release.
+5. Interview for fields those entries introduce and the section lacks. Never
+   re-ask a field the section already answers — this is an upgrade, not a
+   re-onboarding.
+6. Write `collab_version: <release>` along with any approved changes, under the
+   standalone-commit rule below. Preserve the section's existing style; do not
+   reformat a pre-v1 section into the template.
+
+If `CHANGELOG.md` is missing or unreadable, say so and do NOT write a version
+stamp. A repeated warning next session is a better failure than a silent false
+"up to date".
+
+Stamp only `collab_version:`, inside the Collaboration section. Everything above
+that section — including `conventions_version:` — belongs to
+`redmine-onboarding` and is never touched here.
 
 ## Fresh mode: interview
 
@@ -92,6 +125,12 @@ runtime. These answers are the contract-template defaults.
 
 1. Append the Collaboration section to `redmine-conventions.md` from
    the template, with the answers. Touch nothing above it.
+   If the section already exists (RE-VERIFY), merge the approved changes into
+   it rather than appending a second section.
+   In FRESH mode, write `collab_version:` as the first field of the section,
+   set to this skill's declared release — take that value from the `Release:`
+   line at the top of this file, never from the template. In RE-VERIFY mode the
+   Version step above already governs the stamp; write none here.
 2. Show it to the human for approval.
 3. Commit it as a STANDALONE commit on the DEFAULT branch — nothing
    else in the commit, never on a work branch, never bundled with other
@@ -117,8 +156,9 @@ not skipped silently.
 End with two lists:
 - WORKING: what was verified, per account.
 - NEEDS ADMIN: anything only the admin web UI can fix (missing agent
-  accounts, project memberships, roles and permissions — the REST API
-  cannot create or modify any of these), phrased as concrete steps.
+  accounts, project memberships, roles and permissions — the agent's
+  non-admin API access cannot create or modify any of these), phrased as
+  concrete steps.
 
 Do not start a collaborative session in the same conversation unless
 the verification passed clean or the human explicitly says to continue.

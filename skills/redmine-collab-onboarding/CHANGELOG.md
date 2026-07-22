@@ -1,0 +1,21 @@
+# redmine-collab-onboarding — collaboration changelog
+
+Read by this skill during a RE-VERIFY upgrade, and ONLY when the section's
+`collab_version:` differs from this skill's declared release.
+
+Covers the `## Collaboration (optional)` section only. The base conventions have
+their own changelog at `skills/redmine-onboarding/CHANGELOG.md`.
+
+## unversioned → 1
+
+The Collaboration section arrived in PR #1 — the first major change to the
+bolt-on — before versioning existed, so a section with no `collab_version:` line
+predates the stamp but already carries the full v1 interview: the coordinator
+and reviewer accounts, the human account and signature format, the persona
+defaults and recognized commenters, the gate defaults and authorization
+channels, the round budget, the notification map, the authoritative-files list,
+and the reviewer checkout. Every one of those fields already existed then, so
+the upgrade adds the `collab_version: 1` stamp and asks nothing.
+
+A repo with NO Collaboration section is not stale — collaboration is opt-in, and
+its absence is a choice. Run this skill in fresh mode to adopt it.
