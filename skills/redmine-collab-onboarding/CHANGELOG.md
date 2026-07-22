@@ -8,10 +8,14 @@ their own changelog at `skills/redmine-onboarding/CHANGELOG.md`.
 
 ## unversioned → 1
 
-A Collaboration section with no `collab_version:` line was written by the
-release that introduced collaboration, before versioning existed. Every field of
-the current interview already existed then, so the upgrade adds the
-`collab_version: 1` stamp and asks nothing.
+The Collaboration section arrived in PR #1 — the first major change to the
+bolt-on — before versioning existed, so a section with no `collab_version:` line
+predates the stamp but already carries the full v1 interview: the coordinator
+and reviewer accounts, the human account and signature format, the persona
+defaults and recognized commenters, the gate defaults and authorization
+channels, the round budget, the notification map, the authoritative-files list,
+and the reviewer checkout. Every one of those fields already existed then, so
+the upgrade adds the `collab_version: 1` stamp and asks nothing.
 
 A repo with NO Collaboration section is not stale — collaboration is opt-in, and
 its absence is a choice. Run this skill in fresh mode to adopt it.

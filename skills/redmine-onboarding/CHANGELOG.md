@@ -16,11 +16,19 @@ existed.
 **Base conventions: no new fields.** A pre-v1 base section is already complete.
 The upgrade adds the `conventions_version: 1` stamp and asks nothing.
 
-**What else shipped in this release:** multi-model collaboration —
-`redmine-collab-onboarding`, `redmine-coordinator`, `redmine-reviewer`, and the
-optional `## Collaboration (optional)` section of the conventions file. It is
-opt-in: a repo that never runs two models needs none of it. To adopt it, run
-`redmine-collab-onboarding`.
+**The first major change (PR #1): multi-model collaboration.** This is the
+bolt-on's first feature beyond solo tracking. A coordinator session and one or
+more reviewer sessions take a ticket through
+design → spec → plan → implementation → PR review, conversing in the ticket
+journal under explicit human authorization gates. It adds three skills —
+`redmine-coordinator`, `redmine-reviewer`, `redmine-collab-onboarding` — a shared
+rulebook at `skills/shared/collab-protocol.md`, and an optional
+`## Collaboration (optional)` section to the conventions file.
+
+It is opt-in and changes nothing about base tracking: a repo that never runs two
+models needs none of it, and its base section stays complete as written. To
+adopt it, run `redmine-collab-onboarding`, which owns and versions the
+Collaboration section; base onboarding never touches it.
 
 **Format note.** Pre-v1 files predate the current template and may use prose,
 tables, or different field names. Preserve the file's existing style when
