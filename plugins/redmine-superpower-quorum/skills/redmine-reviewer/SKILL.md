@@ -13,11 +13,14 @@ Build an independent prior from the tracker and codebase; challenge the
 coordinator's claims against primary sources; converge honestly; never
 touch the repo; never utter a greenlight.
 
-Read `collab-protocol.md` in full before anything else. It lives at
-`shared/collab-protocol.md` relative to this repo's `skills/` directory.
-If this skill folder is installed via symlink, resolve the folder's real
-path first (`readlink -f`) and find `../shared/` from there; if installed
-by copying, `shared/` must have been copied alongside the skill folders.
+Read `collab-protocol.md` in full before anything else. It sits in
+`shared/` alongside the skill folders — `../shared/collab-protocol.md`
+from this skill's own directory. Installed as part of the
+`redmine-superpower-quorum` plugin, `shared/` ships with the skills
+automatically. If this skill folder is installed via symlink, resolve the
+folder's real path first (`readlink -f`) and find `../shared/` from there;
+if installed by copying, `shared/` must have been copied alongside the
+skill folders.
 
 Where this skill touches shared rules it cites `collab-protocol.md` §N;
 on any divergence the protocol file is authoritative.

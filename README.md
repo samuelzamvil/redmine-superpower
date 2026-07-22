@@ -21,7 +21,8 @@ happens, and you are never asked to push paper. It never gates development to
 update a ticket, and it never asks a question superpowers wouldn't have
 stopped for anyway.
 
-Five skills ship here. Two are the core:
+Five skills ship here, packaged as two plugins. Two are the core (the
+**`redmine-superpower`** plugin):
 
 - **`redmine-tracking`** — the runtime skill. Reads a per-repo conventions
   file, then mirrors each superpowers phase (brainstorm → plan → execute →
@@ -32,7 +33,8 @@ Five skills ship here. Two are the core:
   and verifies the instance from the agent account — reporting anything only
   an admin can fix.
 
-Three more are optional, for running two models against one ticket:
+Three more are optional — the **`redmine-superpower-quorum`** plugin, for
+running two models against one ticket:
 
 - **`redmine-collab-onboarding`** — appends the Collaboration section to your
   conventions file and verifies each declared agent account.
@@ -59,28 +61,56 @@ decisions log.
 
 ## Install
 
-The skills are plain Claude Code skills — install them personally (every
-project sees them) or per-repo.
+Two plugins ship from this repo's marketplace (`samz`):
 
-**Personal (symlink, edits stay live):**
+- **`redmine-superpower`** — the base: `redmine-onboarding` + `redmine-tracking`.
+- **`redmine-superpower-quorum`** — the multi-model add-on:
+  `redmine-collab-onboarding` + `redmine-coordinator` + `redmine-reviewer`. It
+  depends on the base, so installing it pulls the base in too.
+
+**From the marketplace (recommended):**
+
+```bash
+/plugin marketplace add samuelzamvil/redmine-superpower
+/plugin install redmine-superpower@samz          # base only
+/plugin install redmine-superpower-quorum@samz   # add-on + base
+```
+
+Or run `marketplace add`, then browse and click through the interactive
+`/plugin` menu.
+
+**Direct zip import (single session):** download the per-plugin zips from a
+[release](https://github.com/samuelzamvil/redmine-superpower/releases) and load
+them for one session:
+
+```bash
+claude --plugin-dir ./redmine-superpower-v1.0.0.zip
+# or fetch by URL:
+claude --plugin-url https://github.com/samuelzamvil/redmine-superpower/releases/download/v1.0.0/redmine-superpower-v1.0.0.zip
+```
+
+Zip loading is per-session and does **no** dependency resolution, so to use the
+quorum add-on this way, load **both** zips:
+
+```bash
+claude --plugin-dir ./redmine-superpower-v1.0.0.zip \
+       --plugin-dir ./redmine-superpower-quorum-v1.0.0.zip
+```
+
+**Manual / dev (symlink, edits stay live):** the plugins are plain skill folders
+under `plugins/<plugin>/skills/`, so you can still symlink or copy individual
+skills:
 
 ```bash
 git clone https://github.com/samuelzamvil/redmine-superpower
 cd redmine-superpower
-for s in redmine-onboarding redmine-tracking redmine-collab-onboarding \
-         redmine-coordinator redmine-reviewer; do
-  ln -s "$(pwd)/skills/$s" ~/.claude/skills/"$s"
-done
+ln -s "$(pwd)/plugins/redmine-superpower/skills/redmine-onboarding" ~/.claude/skills/redmine-onboarding
+ln -s "$(pwd)/plugins/redmine-superpower/skills/redmine-tracking"   ~/.claude/skills/redmine-tracking
 ```
 
-**Per-repo (scoped to one consuming repo):** copy the skill folders you want
-into that repo's `.claude/skills/`. If you copy any of the three collaboration
-skills, copy `skills/shared/` alongside them — they read
-`shared/collab-protocol.md`. Symlink installs resolve it automatically from the
-link's real path, so it needs no separate link.
-
-Personal skills live at `~/.claude/skills/<name>/SKILL.md`; project skills at
-`.claude/skills/<name>/SKILL.md`. A plugin package may come later.
+For a copy install of any quorum skill, copy that plugin's `skills/shared/`
+folder alongside it — the collaboration skills read `shared/collab-protocol.md`.
+Symlink installs resolve it automatically from the link's real path.
 
 ## Quickstart
 
@@ -133,7 +163,9 @@ is opt-in, and its absence is a choice.
 
 This schema version is deliberately separate from the package version: it bumps
 only when the onboarding interview changes, so a release that touches only
-wording never prompts a pointless re-onboarding.
+wording never prompts a pointless re-onboarding. Both plugins currently ship at
+package version `1.0.0`, matching the skills' `Release: 1`; the two version
+lines are independent and will drift as either changes.
 
 ## License
 

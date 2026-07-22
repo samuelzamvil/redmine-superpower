@@ -1,0 +1,32 @@
+name: validate
+
+# Structure-only check: parses the marketplace and both plugin manifests and
+# validates every SKILL.md's frontmatter. Never publishes anything.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate marketplace (schema, duplicate names, path traversal)
+        run: claude plugin validate . --strict
+
+      - name: Validate base plugin
+        run: claude plugin validate ./plugins/redmine-superpower --strict
+
+      - name: Validate quorum plugin
+        run: claude plugin validate ./plugins/redmine-superpower-quorum --strict

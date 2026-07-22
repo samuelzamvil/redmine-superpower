@@ -13,11 +13,14 @@ Run superpowers normally; re-route the human's conversational seat to the
 owning ticket's journal; enforce the human's authorization gates; keep
 the session alive with a standing watcher.
 
-Read `collab-protocol.md` in full before anything else. It lives at
-`shared/collab-protocol.md` relative to this repo's `skills/` directory.
-If this skill folder is installed via symlink, resolve the folder's real
-path first (`readlink -f`) and find `../shared/` from there; if installed
-by copying, `shared/` must have been copied alongside the skill folders.
+Read `collab-protocol.md` in full before anything else. It sits in
+`shared/` alongside the skill folders — `../shared/collab-protocol.md`
+from this skill's own directory. Installed as part of the
+`redmine-superpower-quorum` plugin, `shared/` ships with the skills
+automatically. If this skill folder is installed via symlink, resolve the
+folder's real path first (`readlink -f`) and find `../shared/` from there;
+if installed by copying, `shared/` must have been copied alongside the
+skill folders.
 
 Where this skill touches shared rules it cites `collab-protocol.md` §N;
 on any divergence the protocol file is authoritative.

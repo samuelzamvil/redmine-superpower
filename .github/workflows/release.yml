@@ -1,0 +1,55 @@
+name: release
+
+# Push a tag like v1.0.0 to build one direct-import zip per plugin and attach
+# them to a GitHub Release. Each zip has the plugin DIRECTORY at its top level
+# (e.g. redmine-superpower/.claude-plugin/plugin.json), which is the shape
+# `claude --plugin-dir ./x.zip` and `--plugin-url https://.../x.zip` expect.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate before packaging
+        run: |
+          claude plugin validate . --strict
+          claude plugin validate ./plugins/redmine-superpower --strict
+          claude plugin validate ./plugins/redmine-superpower-quorum --strict
+
+      - name: Build direct-import zips
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME}"   # e.g. v1.0.0
+          mkdir -p dist
+          # zip from inside plugins/ so the plugin directory sits at the zip root
+          for plugin in redmine-superpower redmine-superpower-quorum; do
+            ( cd plugins && zip -r "../dist/${plugin}-${VERSION}.zip" "$plugin" )
+          done
+          echo "--- built ---"
+          ls -l dist
+          echo "--- top level of base zip ---"
+          unzip -l "dist/redmine-superpower-${VERSION}.zip" | head -n 15
+
+      - name: Create GitHub Release and attach zips
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" dist/*.zip \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes

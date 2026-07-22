@@ -1,0 +1,22 @@
+{
+  "name": "redmine-superpower-quorum",
+  "version": "1.0.0",
+  "description": "Multi-model collaboration add-on for redmine-superpower: run a coordinator model and one or more reviewer models against a single ticket, routing questions and claims through the ticket journal. Ships redmine-collab-onboarding, redmine-coordinator, and redmine-reviewer.",
+  "author": {
+    "name": "Samuel Zamvil",
+    "url": "https://github.com/samuelzamvil"
+  },
+  "homepage": "https://github.com/samuelzamvil/redmine-superpower",
+  "repository": "https://github.com/samuelzamvil/redmine-superpower",
+  "license": "MIT",
+  "keywords": [
+    "redmine",
+    "superpowers",
+    "multi-model",
+    "collaboration",
+    "code-review"
+  ],
+  "dependencies": [
+    "redmine-superpower"
+  ]
+}
