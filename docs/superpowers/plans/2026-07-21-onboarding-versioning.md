@@ -2,6 +2,15 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **Status: executed; task bodies are the plan as written, not the final
+> shipped text.** Review during execution changed several things after these
+> tasks were drafted: the schema token became a bare integer (`1`, not `v1`),
+> the collab heading is matched loosely (`## Collaboration`, no `(optional)`
+> suffix), the tracking advisory grew a "newer than install" row per section,
+> and the onboarding version step gained a "stop if the file is newer" branch.
+> Where a task body still shows the earlier form, the shipped skills and the
+> spec are authoritative. This document is kept as an execution record.
+
 **Goal:** Stamp a conventions schema version into every skill and into
 `redmine-conventions.md`, so an already-onboarded repo learns it predates a
 release and is told which skill to re-run.

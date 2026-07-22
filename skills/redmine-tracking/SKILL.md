@@ -56,7 +56,8 @@ may use prose, tables, or different field names.
 | `conventions_version:` lower than this release | "Conventions at vN, skills at vM. Run `redmine-onboarding` to update." |
 | `conventions_version:` higher than this release | "Conventions at vN, skills at vM — this install is older than the file. Update the installed skills." |
 | No `## Collaboration` section at all | Say NOTHING. Absence is opt-out, not drift. |
-| Collaboration section present, `collab_version:` missing or lower | "Collaboration section at vN, skills at vM. Run `redmine-collab-onboarding` to update." |
+| Collaboration section present, no `collab_version:` found | "Collaboration section predates v1. Run `redmine-collab-onboarding` to update." |
+| Collaboration section present, `collab_version:` lower than this release | "Collaboration section at vN, skills at vM. Run `redmine-collab-onboarding` to update." |
 | Collaboration section present, `collab_version:` higher than this release | "Collaboration section at vN, skills at vM — this install is older than the file. Update the installed skills." |
 | Conventions file missing or unreadable | Existing behavior above. Add nothing here. |
 

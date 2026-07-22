@@ -31,8 +31,11 @@ introduction of versioning itself.
 
 Independent per-skill counters were rejected: one repo, one PR cadence, one
 changelog. Several counters would buy precision that has to be maintained by
-hand, and a release that changes nothing about a given section simply produces
-no mismatch for it, which is the same outcome.
+hand. The single counter's cost is that every release bumps every skill's
+`Release:` line, so a section whose interview did not change still shows a
+mismatch until re-stamped — but with no changelog entry for that bump, the
+upgrade presents nothing and asks nothing, making the re-stamp question-free.
+That bounded cost beat maintaining several counters by hand.
 
 ## Where versions live
 
@@ -201,8 +204,9 @@ Bumping the schema version touches, in order:
 1. The `**Release:**` line in all five `skills/*/SKILL.md`.
 2. A new entry in the `CHANGELOG.md` of whichever onboarding skill's interview
    changed — heading `## <previous> → <new>` — listing the fields it adds.
-   A skill whose interview did not change gets no entry and produces no
-   mismatch for its section.
+   A skill whose interview did not change gets no entry here, but step 1 still
+   bumps its `Release:` line, so its section shows a mismatch until re-stamped:
+   a question-free upgrade run that presents nothing and only re-stamps.
 3. The stamp literals in `redmine-conventions.template.md`.
 
 `redmine-conventions.template.md` lives at the repo root and is NOT installed
