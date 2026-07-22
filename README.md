@@ -86,7 +86,7 @@ them for one session:
 ```bash
 claude --plugin-dir ./redmine-superpower-v1.0.0.zip
 # or fetch by URL:
-claude --plugin-url https://github.com/samuelzamvil/redmine-superpower/releases/download/v1.0.0/redmine-superpower-v1.0.0.zip
+claude --plugin-url https://github.com/samuelzamvil/redmine-superpower/releases/download/redmine-superpower-v1.0.0/redmine-superpower-v1.0.0.zip
 ```
 
 Zip loading is per-session and does **no** dependency resolution, so to use the

@@ -4,7 +4,8 @@ Read by this skill during a RE-VERIFY upgrade, and ONLY when the section's
 `collab_version:` differs from this skill's declared release.
 
 Covers the `## Collaboration (optional)` section only. The base conventions have
-their own changelog at `skills/redmine-onboarding/CHANGELOG.md`.
+their own changelog: the `CHANGELOG.md` in the `redmine-onboarding` skill
+folder, shipped in the base `redmine-superpower` plugin.
 
 ## unversioned → 1
 
