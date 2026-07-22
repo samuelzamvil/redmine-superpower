@@ -1,0 +1,67 @@
+name: release
+
+# Fully automatic. On every push to main, each plugin whose manifest `version`
+# has not been released yet is built and published — no manual tagging. Bump a
+# plugin's version, merge, and CI cuts the release. Merges that don't change a
+# version publish nothing (the version's tag already exists).
+#
+# Each zip has the plugin DIRECTORY at its top level
+# (e.g. redmine-superpower/.claude-plugin/plugin.json), which is the shape
+# `claude --plugin-dir ./x.zip` and `--plugin-url https://.../x.zip` expect.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate before packaging
+        run: |
+          set -euo pipefail
+          claude plugin validate . --strict
+          mapfile -t dirs < <(node -e "require('./.claude-plugin/marketplace.json').plugins.forEach(p=>console.log(p.source.replace(/^\.\//,'')))")
+          for dir in "${dirs[@]}"; do claude plugin validate "./${dir}" --strict; done
+
+      - name: Publish any plugin whose version isn't released yet
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          root="$PWD"
+          mkdir -p dist
+          # Discover plugins from the marketplace catalog. Adding a plugin there
+          # is all it takes — no edit to this file.
+          mapfile -t entries < <(node -e "require('./.claude-plugin/marketplace.json').plugins.forEach(p=>console.log(p.name+'\t'+p.source))")
+          if [ "${#entries[@]}" -eq 0 ]; then echo "no plugins in marketplace.json"; exit 1; fi
+          for entry in "${entries[@]}"; do
+            name="${entry%%$'\t'*}"
+            source="${entry#*$'\t'}"
+            dir="${source#./}"                                   # ./plugins/x -> plugins/x
+            version="$(node -p "require('./${dir}/.claude-plugin/plugin.json').version")"
+            tag="${name}-v${version}"
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "· ${tag} already released — skipping"
+              continue
+            fi
+            echo "· publishing ${tag}"
+            zip="${root}/dist/${name}-v${version}.zip"
+            # zip from the plugin's parent so the plugin DIRECTORY sits at the zip root
+            ( cd "$(dirname "$dir")" && zip -qr "$zip" "$(basename "$dir")" )
+            unzip -l "$zip" | head -n 8
+            # `gh release create` creates the tag at this commit; notes auto-generated
+            gh release create "$tag" "$zip" --title "$tag" --generate-notes
+          done

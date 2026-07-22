@@ -1,0 +1,19 @@
+{
+  "name": "samuelzamvil",
+  "owner": {
+    "name": "Samuel Zamvil"
+  },
+  "metadata": {
+    "description": "Samuel Zamvil's Claude Code plugins."
+  },
+  "plugins": [
+    {
+      "name": "redmine-superpower",
+      "source": "./plugins/redmine-superpower"
+    },
+    {
+      "name": "redmine-superpower-quorum",
+      "source": "./plugins/redmine-superpower-quorum"
+    }
+  ]
+}

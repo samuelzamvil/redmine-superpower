@@ -6,7 +6,8 @@ records what the interview gained, so an upgrade asks only about genuinely new
 fields.
 
 Covers the BASE conventions only. The `## Collaboration (optional)` section has
-its own changelog at `skills/redmine-collab-onboarding/CHANGELOG.md`.
+its own changelog: the `CHANGELOG.md` in the `redmine-collab-onboarding` skill
+folder, shipped in the `redmine-superpower-quorum` plugin.
 
 ## unversioned → 1
 
@@ -22,7 +23,8 @@ more reviewer sessions take a ticket through
 design → spec → plan → implementation → PR review, conversing in the ticket
 journal under explicit human authorization gates. It adds three skills —
 `redmine-coordinator`, `redmine-reviewer`, `redmine-collab-onboarding` — a shared
-rulebook at `skills/shared/collab-protocol.md`, and an optional
+rulebook (`collab-protocol.md`, in the `shared/` folder alongside those skills,
+all shipped in the `redmine-superpower-quorum` plugin), and an optional
 `## Collaboration (optional)` section to the conventions file.
 
 It is opt-in and changes nothing about base tracking: a repo that never runs two
