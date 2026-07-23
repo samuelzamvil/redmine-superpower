@@ -7,6 +7,23 @@ Covers the `## Collaboration (optional)` section only. The base conventions have
 their own changelog: the `CHANGELOG.md` in the `redmine-onboarding` skill
 folder, shipped in the base `redmine-superpower` plugin.
 
+## 1 → 2
+
+**Collaboration conventions: no new fields.** The upgrade asks nothing and
+updates only the `collab_version` stamp.
+
+**Skill selection.** Quoted YAML descriptions prevent ticket examples such as
+`#N` from truncating skill metadata. `redmine-collab-onboarding` now recognizes
+requests to update collaboration configuration, add reviewer models, change
+review personas, or re-verify authorization gates. Coordinator and reviewer
+descriptions now recognize more natural role-specific session requests and
+distinguish the two sides explicitly.
+
+**Account verification.** A successful 2xx response to the labeled-fixture
+comment write is treated as success. Collab onboarding no longer reads the
+comment back solely to confirm that write. Reads used to establish watcher
+state during live collaboration are unchanged.
+
 ## unversioned → 1
 
 The Collaboration section arrived in PR #1 — the first major change to the

@@ -5,7 +5,7 @@ description: 'Use when the human asks to set up, update, change, fix, redo, or r
 
 # Redmine Onboarding
 
-**Release:** 1 (conventions schema version — see `CHANGELOG.md` in this folder)
+**Release:** 2 (conventions schema version — see `CHANGELOG.md` in this folder)
 
 Run once per repo/instance pair, and again only after structural changes to
 the Redmine instance. Produces exactly one artifact: `redmine-conventions.md`

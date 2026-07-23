@@ -5,7 +5,7 @@ description: 'Use whenever any superpowers skill is active in a session that mod
 
 # Redmine Tracking for Superpowers
 
-**Release:** 1 (conventions schema version)
+**Release:** 2 (conventions schema version)
 
 ## Core principle
 
