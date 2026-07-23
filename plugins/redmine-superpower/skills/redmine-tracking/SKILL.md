@@ -1,6 +1,6 @@
 ---
 name: redmine-tracking
-description: Use whenever any superpowers skill is active in a session that modifies the repository, or when the human references a ticket number. Performs Redmine ticket bookkeeping automatically as a side effect of the current superpowers phase — never as a gate. Status follows phase; the human never manually assigns status.
+description: 'Use whenever any superpowers skill is active in a session that modifies the repository, or when the human references a ticket or issue number ("#123", "ticket 123", "issue 42", "continue 142"). Also use when the human asks what state a ticket is in.'
 ---
 
 # Redmine Tracking for Superpowers

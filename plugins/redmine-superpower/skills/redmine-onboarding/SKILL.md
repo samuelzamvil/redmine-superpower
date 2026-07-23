@@ -1,6 +1,6 @@
 ---
 name: redmine-onboarding
-description: Use when setting up redmine-tracking for a repo for the first time, when redmine-tracking reports missing or invalid conventions, or when the human asks to re-verify or update the Redmine conventions after changing their instance. Interviews the human, writes redmine-conventions.md, verifies the instance from the agent account, and reports anything only an admin can fix.
+description: 'Use when the human asks to set up, update, change, fix, redo, or re-verify Redmine config, configuration, conventions, or status/tracker mappings for a repo — e.g. "update my redmine config", "redo the redmine setup", "point this repo at redmine", "my redmine status mappings are wrong". Also use when Redmine work is requested in a repo with no redmine-conventions.md, or redmine-tracking reports that file missing, stale, or invalid. Base conventions only — collaboration setup uses redmine-collab-onboarding.'
 ---
 
 # Redmine Onboarding

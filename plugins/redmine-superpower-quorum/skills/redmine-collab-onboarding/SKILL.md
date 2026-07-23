@@ -1,6 +1,6 @@
 ---
 name: redmine-collab-onboarding
-description: Use when the human wants to set up multi-model collaboration for a repo ("set up multi-model collaboration"), after redmine-onboarding has passed clean. Interviews the human, appends the Collaboration section to redmine-conventions.md, and verifies each declared agent account against the instance. Optional — repos that never run two models never need it.
+description: 'Use when the human asks to set up, update, or re-verify multi-model collaboration, reviewer models, review personas, or authorization gates for a repo — e.g. "set up multi-model collaboration", "add a reviewer model", "update my collab config". Use only after redmine-onboarding has passed clean. Optional — repos that never run two models never need it.'
 ---
 
 # Redmine Collab Onboarding
