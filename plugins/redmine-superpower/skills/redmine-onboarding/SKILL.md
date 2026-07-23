@@ -101,17 +101,32 @@ changes without applying them, so every probe is write-then-read-back.
 1. Membership: the agent account can see the project.
 2. Trackers and statuses named in the conventions all exist.
 3. Epics resolve: at least one issue with the epic-role tracker exists.
-4. Grid probe on a labeled fixture issue: attempt each transition the
-   tracking skill uses (backlog→active, active→blocked, blocked→active,
-   active→ceiling, ceiling→active); read back; confirm applied. Attempt a
-   transition to closed; confirm it does NOT apply (if it applies, warn
-   the human: the agent role can close tickets, which the workflow forbids
-   by design).
+4. Grid probe on a labeled fixture issue: attempt EVERY transition on the
+   tracking skill's whitelist, IN THIS ORDER, so each probe starts from
+   the state the previous one left behind:
+
+       backlog→active, active→blocked, blocked→ceiling, ceiling→active,
+       active→blocked (repeat — already proven, needed only to re-enter
+       blocked), blocked→active, active→ceiling
+
+   Read back after each; confirm applied. A probe counts ONLY if the
+   issue's current status is that transition's FROM status — a write onto
+   an issue already at the target status no-ops, returns 2xx, and reads
+   back looking like success. Never score that as a pass. Probing a
+   partial grid is what leaves the tracking skill guessing at runtime, so
+   do not trim or reorder this list. Attempt a transition to closed;
+   confirm it does NOT apply (if it applies, warn the human: the agent
+   role can close tickets, which the workflow forbids by design).
+   The remaining whitelist edge, backlog→rejected, usually lands in a
+   CLOSED status, so probe it on a SECOND labeled fixture and leave that
+   one Rejected — never on the primary fixture, which stays open for the
+   human.
 5. Custom fields round-trip: set branch and PR fields, read back.
 6. done_ratio: write a value, read back. If it does not stick, report:
    instance setting "calculate done ratio" must be "use the issue field".
-7. Delete or close nothing: leave the fixture issue for the human, labeled
-   as a fixture.
+7. Delete nothing, and never close the PRIMARY fixture — it stays open for
+   the human, labeled as a fixture. The second fixture deliberately ends
+   Rejected; that is its purpose, not a violation of this rule.
 
 ## Report
 
