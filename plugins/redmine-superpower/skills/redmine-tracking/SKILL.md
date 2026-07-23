@@ -218,10 +218,7 @@ Never claim completion without fresh verification evidence in the comment.
 ## Session resume
 
 When the human says "continue #N" (or names a ticket):
-1. Read the ticket: status, `branch` field, latest comments, plan path.
-   Status routes the resume: Resolved means rework (→ In Progress at the
-   first repo write); Closed or Rejected means stop and ask the human;
-   anything else, status follows phase as usual.
+1. Read the ticket: `branch` field, latest comments, plan path.
 2. Check out the recorded branch's worktree. If the worktree has
    uncommitted changes from another session, stop and tell the human —
    one agent writes at a time.
