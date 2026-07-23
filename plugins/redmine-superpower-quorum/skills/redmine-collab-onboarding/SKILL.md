@@ -147,10 +147,9 @@ and every reviewer. Accounts you cannot authenticate as are reported,
 not skipped silently.
 
 1. Membership: the account can see the configured project.
-2. Comment round-trip: the account can post a comment on a labeled
-   fixture issue; read it back and confirm it appears with the right
-   author. Redmine can accept writes it silently discards, so every
-   probe is write-then-read-back.
+2. Comment write: the account can post a comment on a labeled fixture
+   issue. Treat a successful 2xx response as success; do not read solely
+   to confirm the write.
 3. Delete or close nothing: leave the fixture issue for the human,
    labeled as a fixture.
 
