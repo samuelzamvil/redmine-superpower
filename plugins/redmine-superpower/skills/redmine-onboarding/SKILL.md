@@ -1,6 +1,6 @@
 ---
 name: redmine-onboarding
-description: Use when setting up redmine-tracking for a repo for the first time, when redmine-tracking reports missing or invalid conventions, or when the human asks to re-verify or update the Redmine conventions after changing their instance. Interviews the human, writes redmine-conventions.md, verifies the instance from the agent account, and reports anything only an admin can fix.
+description: 'Use when the human asks to set up, update, change, fix, redo, or re-verify Redmine config, configuration, conventions, or status/tracker mappings for a repo — e.g. "update my redmine config", "redo the redmine setup", "point this repo at redmine", "my redmine status mappings are wrong". Also use when Redmine work is requested in a repo with no redmine-conventions.md, or redmine-tracking reports that file missing, stale, or invalid. Base conventions only — collaboration setup uses redmine-collab-onboarding.'
 ---
 
 # Redmine Onboarding
@@ -95,22 +95,18 @@ IDs, anything queryable at runtime. Structural mappings only.
 ## Verify the instance (from the agent account, always)
 
 Run these against the configured project; they double as the acceptance
-test for the instance setup. Redmine returns 204 for workflow-forbidden
-changes without applying them, so every probe is write-then-read-back.
+test for the instance setup. Treat every successful 2xx response as success;
+do not read solely to confirm a successful write.
 
 1. Membership: the agent account can see the project.
 2. Trackers and statuses named in the conventions all exist.
 3. Epics resolve: at least one issue with the epic-role tracker exists.
-4. Grid probe on a labeled fixture issue: attempt each transition the
-   tracking skill uses (backlog→active, active→blocked, blocked→active,
-   active→ceiling, ceiling→active); read back; confirm applied. Attempt a
-   transition to closed; confirm it does NOT apply (if it applies, warn
-   the human: the agent role can close tickets, which the workflow forbids
-   by design).
-5. Custom fields round-trip: set branch and PR fields, read back.
-6. done_ratio: write a value, read back. If it does not stick, report:
-   instance setting "calculate done ratio" must be "use the issue field".
-7. Delete or close nothing: leave the fixture issue for the human, labeled
+4. On one labeled fixture issue, exercise the normal tracking writes once:
+   set the active status, branch, PR, and `done_ratio`. Successful 2xx
+   responses pass; do not read them back.
+5. Report that the instance setting "calculate done ratio" must be
+   "use the issue field"; a non-admin account cannot inspect or change it.
+6. Delete or close nothing: leave the fixture issue for the human, labeled
    as a fixture.
 
 ## Report

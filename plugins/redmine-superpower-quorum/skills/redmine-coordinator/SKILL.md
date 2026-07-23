@@ -1,6 +1,6 @@
 ---
 name: redmine-coordinator
-description: Use when the human starts a collaborative ticket session ("work #N with reviewers") in a repo whose redmine-conventions.md has a Collaboration section. Runs the superpowers workflow while routing non-gate questions to model reviewers through the ticket journal, enforcing human authorization gates, and keeping the session alive with a standing watcher.
+description: 'Use when the human starts a collaborative ticket session as the coordinator, in a repo whose redmine-conventions.md has a Collaboration section — e.g. "work #N with reviewers", "coordinate ticket 42", "run 42 with the reviewer models". Coordinator side only; the reviewer side of the same session uses redmine-reviewer.'
 ---
 
 # Redmine Coordinator
