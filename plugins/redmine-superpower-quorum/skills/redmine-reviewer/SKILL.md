@@ -1,11 +1,11 @@
 ---
 name: redmine-reviewer
-description: Use when the human starts a reviewer session for a collaborative ticket ("review ticket #N as reviewer 2"). Builds an independent prior from the tracker and codebase, challenges the coordinator's claims against primary sources through ticket comments, and never writes repo content, never advances ticket state, and never utters authorization language.
+description: 'Use when the human starts a reviewer session for a collaborative ticket — e.g. "review ticket #N as reviewer 2", "be reviewer 1 on 42", "join 42 as a reviewer". Reviewer side only; the coordinator side of the same session uses redmine-coordinator.'
 ---
 
 # Redmine Reviewer
 
-**Release:** 1 (conventions schema version)
+**Release:** 2 (conventions schema version)
 
 ## Core principle
 

@@ -436,8 +436,9 @@ greenlight.
   preserve the other's sections of the file untouched — each edits only
   what it owns.
 - **Verify:** from each declared agent account where possible — can read the
-  project, can post a comment (write-then-read-back on a labeled fixture).
-  Report WORKING / NEEDS ADMIN in base-onboarding style.
+  project and can post a comment on a labeled fixture. Treat a successful
+  2xx response as success; do not read solely to confirm the write. Report
+  WORKING / NEEDS ADMIN in base-onboarding style.
 - **Template:** `redmine-conventions.template.md` gains the matching optional
   collab section, marked "only present if collab onboarding was run."
 

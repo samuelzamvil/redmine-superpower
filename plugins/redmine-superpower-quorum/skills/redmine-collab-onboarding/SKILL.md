@@ -1,11 +1,11 @@
 ---
 name: redmine-collab-onboarding
-description: Use when the human wants to set up multi-model collaboration for a repo ("set up multi-model collaboration"), after redmine-onboarding has passed clean. Interviews the human, appends the Collaboration section to redmine-conventions.md, and verifies each declared agent account against the instance. Optional — repos that never run two models never need it.
+description: 'Use when the human asks to set up, update, or re-verify multi-model collaboration, reviewer models, review personas, or authorization gates for a repo — e.g. "set up multi-model collaboration", "add a reviewer model", "update my collab config". Use only after redmine-onboarding has passed clean. Optional — repos that never run two models never need it.'
 ---
 
 # Redmine Collab Onboarding
 
-**Release:** 1 (conventions schema version — see `CHANGELOG.md` in this folder)
+**Release:** 2 (conventions schema version — see `CHANGELOG.md` in this folder)
 
 Run once per repo, after base onboarding passes clean. Optional: repos
 that never run two models never need it. Produces exactly one artifact:
@@ -147,10 +147,9 @@ and every reviewer. Accounts you cannot authenticate as are reported,
 not skipped silently.
 
 1. Membership: the account can see the configured project.
-2. Comment round-trip: the account can post a comment on a labeled
-   fixture issue; read it back and confirm it appears with the right
-   author. Redmine can accept writes it silently discards, so every
-   probe is write-then-read-back.
+2. Comment write: the account can post a comment on a labeled fixture
+   issue. Treat a successful 2xx response as success; do not read solely
+   to confirm the write.
 3. Delete or close nothing: leave the fixture issue for the human,
    labeled as a fixture.
 

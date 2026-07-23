@@ -15,7 +15,7 @@ queryable at runtime).
 # Schema version this file was written under. Compared against the skills'
 # declared release; a mismatch prompts a re-run of redmine-onboarding, or a
 # skills update if this file is newer than the install.
-conventions_version: 1
+conventions_version: 2
 
 project_identifier: example-project
 
@@ -58,7 +58,7 @@ anything above it.
 ```markdown
 # Collaboration — managed by redmine-collab-onboarding. Do not edit on a work branch.
 
-- collab_version: 1                           # schema version of this section
+- collab_version: 2                           # schema version of this section
 - coordinator_account: <redmine login>        # posts contracts, artifacts, recaps
 - reviewer_accounts: <login> (1), <login> (2) # ordinal order is posting order
 - human_account: <redmine login|"chat only">  # the human's redmine login, or "chat only"

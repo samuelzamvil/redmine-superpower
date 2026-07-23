@@ -84,17 +84,17 @@ Or run `marketplace add`, then browse and click through the interactive
 them for one session:
 
 ```bash
-claude --plugin-dir ./redmine-superpower-v1.0.0.zip
+claude --plugin-dir ./redmine-superpower-v2.0.0.zip
 # or fetch by URL:
-claude --plugin-url https://github.com/samuelzamvil/redmine-superpower/releases/download/redmine-superpower-v1.0.0/redmine-superpower-v1.0.0.zip
+claude --plugin-url https://github.com/samuelzamvil/redmine-superpower/releases/download/redmine-superpower-v2.0.0/redmine-superpower-v2.0.0.zip
 ```
 
 Zip loading is per-session and does **no** dependency resolution, so to use the
 quorum add-on this way, load **both** zips:
 
 ```bash
-claude --plugin-dir ./redmine-superpower-v1.0.0.zip \
-       --plugin-dir ./redmine-superpower-quorum-v1.0.0.zip
+claude --plugin-dir ./redmine-superpower-v2.0.0.zip \
+       --plugin-dir ./redmine-superpower-quorum-v2.0.0.zip
 ```
 
 **Manual / dev (symlink, edits stay live):** the plugins are plain skill folders
@@ -164,7 +164,7 @@ is opt-in, and its absence is a choice.
 This schema version is deliberately separate from the package version: it bumps
 only when the onboarding interview changes, so a release that touches only
 wording never prompts a pointless re-onboarding. Both plugins currently ship at
-package version `1.0.0`, matching the skills' `Release: 1`; the two version
+package version `2.0.0`, matching the skills' `Release: 2`; the two version
 lines are independent and will drift as either changes.
 
 ## License

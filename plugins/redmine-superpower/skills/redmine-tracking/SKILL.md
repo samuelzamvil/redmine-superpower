@@ -1,11 +1,11 @@
 ---
 name: redmine-tracking
-description: Use whenever any superpowers skill is active in a session that modifies the repository, or when the human references a ticket number. Performs Redmine ticket bookkeeping automatically as a side effect of the current superpowers phase — never as a gate. Status follows phase; the human never manually assigns status.
+description: 'Use whenever any superpowers skill is active in a session that modifies the repository, or when the human references a ticket or issue number ("#123", "ticket 123", "issue 42", "continue 142"). Also use when the human asks what state a ticket is in.'
 ---
 
 # Redmine Tracking for Superpowers
 
-**Release:** 1 (conventions schema version)
+**Release:** 2 (conventions schema version)
 
 ## Core principle
 
@@ -141,18 +141,16 @@ it"; do not remove this edge), Resolved→In Progress (rework after PR
 review), New→Rejected (only on explicit human instruction at design
 review). Any transition not on this list is forbidden — do not attempt it.
 
-## Verify every write
+## Read only when state is needed
 
-Redmine returns success (204) for workflow-forbidden status changes without
-applying them. The silent-204 hazard applies to workflow-gated writes, so
-scope verification accordingly (the MCP round-trip is slow; don't tax the
-hot loop):
+Treat every successful 2xx Redmine response as success. Never issue a read
+solely to confirm a successful write.
 
-- **Mandatory read-back verify:** status changes, custom field changes
-  (`branch`, `pr`), parent changes. Read the issue after the write and
-  confirm it landed. If it didn't, report the discrepancy to the human
-  instead of retrying blindly.
-- **Trust 2xx:** plain comments (journal notes). No read-back needed.
+Read a ticket only when its current state is needed for the next action, when
+the human asks for it, or once at a terminal boundary. Before reporting a
+ticket Resolved or Rejected, fetch it once and confirm its current status. Use
+that same response for the final report. If the status differs, report the
+observed state without speculating about the cause or retrying automatically.
 
 Read and refusal paths never mutate.
 
@@ -190,11 +188,9 @@ inversion applied one level down. It is also ~3x cheaper in API writes on a
 slow MCP and avoids per-SubTask closing ceremony.
 
 The skill updates the Task's `done_ratio` as plan tasks complete, so the
-issue list shows a progress bar without SubTask machinery. NOTE: this
-requires the instance setting "calculate done ratio = use the issue field"
-(if set to status-driven, field writes are silently ignored — same failure
-class as the 204 trap). The setup checklist pins this setting; the build
-brief verifies it with a write-and-read-back once, then trust it.
+issue list shows a progress bar without SubTask machinery. This requires the
+instance setting "calculate done ratio = use the issue field." The setup
+checklist calls out this setting; a non-admin account cannot change it.
 
 SubTasks remain a MANUAL tool for the human's own decomposition; the skill
 never creates them. When the skill ENCOUNTERS a human-created SubTask, it

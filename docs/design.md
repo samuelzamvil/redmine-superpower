@@ -105,10 +105,11 @@ Default row for unknown/future skills: repo-modifying + no ticket attached
 3. **Debug tickets at session start.** Debugging nearly always writes;
    session start is the natural single exchange for ticket + parent,
    avoiding a mid-investigation interrupt.
-4. **Scoped verification.** Read-back verify only for workflow-gated /
-   silently-ignorable writes (status, custom fields, parent, done_ratio
-   once); trust 2xx for comments. mcp-redmine round-trips are slow; don't
-   tax the hottest loop.
+4. **State-driven reads.** Treat successful 2xx responses as success and
+   never read solely to confirm a write. Read when current state is needed
+   for the next action, and once at a terminal boundary before reporting
+   Resolved or Rejected. mcp-redmine round-trips are slow; don't tax the
+   hottest loop.
 5. **Completion menu kept, PR default.** finishing-a-development-branch's
    4-option stop is a natural stopping point; options annotated with
    ticket consequences rather than pinned to PR-only.

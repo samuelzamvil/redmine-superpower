@@ -1,6 +1,6 @@
 {
   "name": "redmine-superpower",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Turns a Redmine instance into the memory for your superpowers workflow: status follows phase, comments accrue as work happens, and you are never asked to push paper. Ships redmine-onboarding (setup) and redmine-tracking (runtime).",
   "author": {
     "name": "Samuel Zamvil",
