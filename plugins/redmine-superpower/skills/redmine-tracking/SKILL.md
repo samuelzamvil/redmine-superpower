@@ -141,18 +141,35 @@ it"; do not remove this edge), Resolved→In Progress (rework after PR
 review), New→Rejected (only on explicit human instruction at design
 review). Any transition not on this list is forbidden — do not attempt it.
 
-## Verify every write
+## Verify once per ticket, not once per write
 
-Redmine returns success (204) for workflow-forbidden status changes without
-applying them. The silent-204 hazard applies to workflow-gated writes, so
-scope verification accordingly (the MCP round-trip is slow; don't tax the
-hot loop):
+Redmine answers 204 to a status change its workflow forbids, without applying
+it (redmine.org defect #8626, confirmed and open since 2011). This is general
+`safe_attributes` behaviour, not a status-only bug: any attribute the role may
+not set is dropped silently and still returns 2xx.
 
-- **Mandatory read-back verify:** status changes, custom field changes
-  (`branch`, `pr`), parent changes. Read the issue after the write and
-  confirm it landed. If it didn't, report the discrepancy to the human
-  instead of retrying blindly.
-- **Trust 2xx:** plain comments (journal notes). No read-back needed.
+`redmine-onboarding` probes the transition grid against the instance at setup,
+so re-proving it on every write buys nothing. Verify once per ticket, at the
+one point where being wrong is unrecoverable.
+
+- **Trust 2xx in flight** — comments, `done_ratio`, `branch`, `pr`, and the
+  status moves New→In Progress, In Progress↔Feedback, and Resolved→In Progress
+  (rework). A drop here can never become a false report: every later status
+  write re-asserts the phase, and the lifecycle ends at the verified terminal
+  write. Never issue a read whose only purpose is to confirm one of these.
+- **Verify the terminal status write, once** — the move to Resolved
+  (Completion) or to Rejected. Nothing reads a ticket after these, and the
+  skill reports them to the human as finished, so a silent drop here becomes a
+  false completion claim. Re-read the issue after the PUT; if the status did
+  not take, say so instead of claiming completion, and diagnose from the
+  status the read-back shows: if it is not the expected FROM status, an
+  earlier move was dropped; if it is, the workflow grid has changed since
+  setup — name `redmine-onboarding`. Do not retry the write.
+- **Verify `parent_issue_id` once, on whichever write sets it** — the create
+  (the 201 response body already shows whether it took, so this costs nothing)
+  or the later repair of a found orphan. The placement invariant above (never
+  proceed with an orphaned Task) depends on that write landing, and onboarding
+  does not probe it.
 
 Read and refusal paths never mutate.
 
@@ -193,8 +210,9 @@ The skill updates the Task's `done_ratio` as plan tasks complete, so the
 issue list shows a progress bar without SubTask machinery. NOTE: this
 requires the instance setting "calculate done ratio = use the issue field"
 (if set to status-driven, field writes are silently ignored — same failure
-class as the 204 trap). The setup checklist pins this setting; the build
-brief verifies it with a write-and-read-back once, then trust it.
+class as the 204 trap). The setup checklist calls out this setting and
+redmine-onboarding reports it if wrong — a non-admin account cannot change
+it — so trust it here rather than re-probing.
 
 SubTasks remain a MANUAL tool for the human's own decomposition; the skill
 never creates them. When the skill ENCOUNTERS a human-created SubTask, it
@@ -222,7 +240,10 @@ Never claim completion without fresh verification evidence in the comment.
 ## Session resume
 
 When the human says "continue #N" (or names a ticket):
-1. Read the ticket: `branch` field, latest comments, plan path.
+1. Read the ticket: status, `branch` field, latest comments, plan path.
+   Status routes the resume: Resolved means rework (→ In Progress at the
+   first repo write); Closed or Rejected means stop and ask the human;
+   anything else, status follows phase as usual.
 2. Check out the recorded branch's worktree. If the worktree has
    uncommitted changes from another session, stop and tell the human —
    one agent writes at a time.
