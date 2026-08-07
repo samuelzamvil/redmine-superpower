@@ -29,7 +29,7 @@ Five skills ship here, packaged as two plugins. Two are the core (the
   debug → complete) into Redmine ticket state. Comments are free; questions
   are expensive.
 - **`redmine-onboarding`** — the setup skill. Run once per repo/instance
-  pair. Interviews you, writes `redmine-conventions.md` at the repo root,
+  pair. Interviews you, writes `conventions/redmine.md` at the repo root,
   and verifies the instance from the agent account — reporting anything only
   an admin can fix.
 
@@ -118,7 +118,7 @@ Symlink installs resolve it automatically from the link's real path.
 
    > Run redmine-onboarding.
 
-   Answer the interview. It writes and commits `redmine-conventions.md`
+   Answer the interview. It writes and commits `conventions/redmine.md`
    (structural mappings only — no live data) as a standalone commit on your
    default branch, then runs the instance verification.
 
@@ -142,7 +142,7 @@ is always queried fresh and never written to the file.
 ## Versioning
 
 Each skill declares a **conventions schema version** — the `Release:` line under
-its title. `redmine-conventions.md` records the version it was written under:
+its title. `conventions/redmine.md` records the version it was written under:
 `conventions_version:` for the base mappings, `collab_version:` inside the
 Collaboration section.
 

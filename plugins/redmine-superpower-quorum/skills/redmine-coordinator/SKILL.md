@@ -1,6 +1,6 @@
 ---
 name: redmine-coordinator
-description: 'Use when the human starts a collaborative ticket session as the coordinator, in a repo whose redmine-conventions.md has a Collaboration section — e.g. "work #N with reviewers", "coordinate ticket 42", "run 42 with the reviewer models". Coordinator side only; the reviewer side of the same session uses redmine-reviewer.'
+description: 'Use when the human starts a collaborative ticket session as the coordinator, in a repo whose conventions/redmine.md has a Collaboration section — e.g. "work #N with reviewers", "coordinate ticket 42", "run 42 with the reviewer models". Coordinator side only; the reviewer side of the same session uses redmine-reviewer.'
 ---
 
 # Redmine Coordinator
@@ -27,9 +27,11 @@ on any divergence the protocol file is authoritative.
 
 ## Preconditions
 
-- `redmine-conventions.md` exists with a Collaboration section. If the
-  file or the section is missing, stop and point the human at
-  `redmine-collab-onboarding`; never limp along on guessed conventions.
+- The conventions file exists with a Collaboration section — look at
+  `conventions/redmine.md`, then `redmine-conventions.md` at the repo root,
+  and take the first that resolves. If neither resolves, or the section is
+  missing, stop and point the human at `redmine-collab-onboarding`; never
+  limp along on guessed conventions.
 - Reviewer sessions are expected to be starting — the human's kickoff
   names or implies a roster.
 
@@ -38,7 +40,7 @@ on any divergence the protocol file is authoritative.
 Do these in order; each step depends on the one before it.
 
 1. **Read the rulebook and the conventions.** `collab-protocol.md` in
-   full, then the Collaboration section of `redmine-conventions.md`:
+   full, then the Collaboration section of `conventions/redmine.md`:
    `coordinator_account`, `reviewer_accounts`, `human_account`,
    `signature_format`, `persona_defaults`, `gate_defaults`,
    `authorization_channels`, `round_budget`, `notification_map`,

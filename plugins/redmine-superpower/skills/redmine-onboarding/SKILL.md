@@ -1,6 +1,6 @@
 ---
 name: redmine-onboarding
-description: 'Use when the human asks to set up, update, change, fix, redo, or re-verify Redmine config, configuration, conventions, or status/tracker mappings for a repo — e.g. "update my redmine config", "redo the redmine setup", "point this repo at redmine", "my redmine status mappings are wrong". Also use when Redmine work is requested in a repo with no redmine-conventions.md, or redmine-tracking reports that file missing, stale, or invalid. Base conventions only — collaboration setup uses redmine-collab-onboarding.'
+description: 'Use when the human asks to set up, update, change, fix, redo, or re-verify Redmine config, configuration, conventions, or status/tracker mappings for a repo — e.g. "update my redmine config", "redo the redmine setup", "point this repo at redmine", "my redmine status mappings are wrong". Also use when Redmine work is requested in a repo with no conventions/redmine.md, or redmine-tracking reports that file missing, stale, or invalid. Base conventions only — collaboration setup uses redmine-collab-onboarding.'
 ---
 
 # Redmine Onboarding
@@ -8,15 +8,27 @@ description: 'Use when the human asks to set up, update, change, fix, redo, or r
 **Release:** 2 (conventions schema version — see `CHANGELOG.md` in this folder)
 
 Run once per repo/instance pair, and again only after structural changes to
-the Redmine instance. Produces exactly one artifact: `redmine-conventions.md`
-at the repo root. Everything else is verification and reporting.
+the Redmine instance. Produces exactly one artifact: the conventions file.
+Everything else is verification and reporting.
+
+## Locating the conventions file
+
+Resolve in this order and stop at the first hit:
+
+1. `conventions/redmine.md` — the current location.
+2. `redmine-conventions.md` at the repo root — the older layout, still valid.
+
+**Never relocate a file you found.** A repo using the root layout keeps it;
+moving it is the repo's decision, not this skill's. Write back to wherever
+resolution landed. Only FRESH mode chooses a location, and it chooses
+`conventions/redmine.md`.
 
 ## Mode detection
 
-- No `redmine-conventions.md` in the repo → FRESH mode.
-- File exists → RE-VERIFY mode: probe the instance, diff discovered
-  structure against the file, present the diff, and update ONLY what the
-  human approves. Never edit on your own initiative.
+- Neither location resolves → FRESH mode.
+- File exists at either location → RE-VERIFY mode: probe the instance, diff
+  discovered structure against the file, present the diff, and update ONLY
+  what the human approves. Never edit on your own initiative.
 
 **Collaboration section ownership.** If the file contains any section whose
 heading begins `## Collaboration`, preserve it byte-for-byte. Match the
@@ -30,7 +42,7 @@ instance structure this skill probes.
 
 ## Version step (RE-VERIFY only, before the instance diff)
 
-1. Scan `redmine-conventions.md` for a `conventions_version:` line. Scan the
+1. Scan `conventions/redmine.md` for a `conventions_version:` line. Scan the
    WHOLE file — pre-v1 files predate the current template, so do not assume a
    position, a fenced block, or the template's field names.
 2. If it equals this skill's declared release, SKIP this section entirely. Do
@@ -76,7 +88,9 @@ IDs, anything queryable at runtime. Structural mappings only.
 
 ## Write and commit
 
-1. Write `redmine-conventions.md` from the template, with the answers.
+1. Write the conventions file from the template, with the answers. In FRESH
+   mode the destination is `conventions/redmine.md`, creating the directory
+   if absent; in RE-VERIFY it is whichever path resolution found, unmoved.
    Never copy the template's Collaboration section — fresh runs write only
    the base conventions. If the file already exists (RE-VERIFY), merge the
    approved base-field changes into it rather than regenerating the whole

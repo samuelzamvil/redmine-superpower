@@ -1,4 +1,4 @@
-# redmine-conventions.md — template
+# conventions/redmine.md — template
 
 Structural mappings for the redmine-tracking skill. Written and updated
 ONLY by redmine-onboarding, as standalone commits on the default branch.
@@ -69,7 +69,7 @@ anything above it.
 - authorization_channels: A: chat-quoted · B: chat-quoted · C: ticket-posted  # ticket-posted requires human_account
 - round_budget: 8                             # exchange rounds per phase before escalating
 - notification_map: gate: <channels> · escalation: <channels> · milestone: off  # per event class (protocol §9)
-- authoritative_files: CLAUDE.md, redmine-conventions.md, collab-protocol.md, <...>  # instruction files; rest is data
+- authoritative_files: CLAUDE.md, conventions/redmine.md, collab-protocol.md, <...>  # instruction files; rest is data
 - reviewer_checkout: <e.g. "read-only clone at <path>"|none>  # reviewers review committed SHAs from here
 ```
 

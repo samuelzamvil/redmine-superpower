@@ -27,8 +27,10 @@ on any divergence the protocol file is authoritative.
 
 ## Preconditions
 
-- `redmine-conventions.md` with its Collaboration section and
-  `collab-protocol.md` are both readable. If either is missing, stop —
+- The conventions file with its Collaboration section and
+  `collab-protocol.md` are both readable. Resolve the conventions file as
+  `conventions/redmine.md`, then `redmine-conventions.md` at the repo root,
+  taking the first hit. If either is missing, stop —
   never review on guessed rules. A missing conventions file or
   Collaboration section → point the human at `redmine-collab-onboarding`;
   a missing or unreadable `collab-protocol.md` → tell the human the
@@ -45,7 +47,7 @@ anchored on it, and no amount of later diligence un-anchors you. Build
 your own prior first, in exactly this order.
 
 1. **Read the rulebook and the conventions.** `collab-protocol.md` in
-   full, then the Collaboration section of `redmine-conventions.md`:
+   full, then the Collaboration section of `conventions/redmine.md`:
    your account in `reviewer_accounts` (ordinal order is posting order),
    `signature_format`, `persona_defaults`, `reviewer_checkout`,
    `round_budget`, `notification_map`, `authoritative_files`.

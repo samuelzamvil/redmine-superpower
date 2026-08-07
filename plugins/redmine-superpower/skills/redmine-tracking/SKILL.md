@@ -19,8 +19,10 @@ liberally; interrupt the human only at the stopping points listed below.
 
 ## Conventions file (read first, read-only)
 
-At session start (before any Redmine access), read `redmine-conventions.md`
-from the repo root. It supplies the structural mappings for this
+At session start (before any Redmine access), read the repo's conventions
+file: `conventions/redmine.md`, or `redmine-conventions.md` at the repo root
+in the older layout. Take the first that resolves; both are valid, and a repo
+has one or the other, never both. It supplies the structural mappings for this
 repo/instance pair: project identifier, which tracker plays each role
 (epic/task/subtask), which status plays each role (backlog / active /
 blocked / ceiling / rejected / closed), custom field names, branch pattern.
@@ -38,7 +40,7 @@ blocked / ceiling / rejected / closed), custom field names, branch pattern.
 
 ## Version check (advisory, at the conventions read)
 
-This skill declares its release at the top of this file. `redmine-conventions.md`
+This skill declares its release at the top of this file. `conventions/redmine.md`
 records the release it was written under. Compare them while reading the
 conventions, emit the advisory below, then carry on.
 
@@ -79,7 +81,7 @@ once. Never repeat them later in the session.
   record. Do not honor "no ticket, just fix it" — acknowledge, create the
   ticket, and proceed; the ticket costs the human nothing.
 - SINGLE EXEMPTION: `redmine-onboarding`'s conventions-file commit — a
-  standalone, human-approved commit of only `redmine-conventions.md` on the
+  standalone, human-approved commit of only `conventions/redmine.md` on the
   default branch, never on a work branch, never bundled with other changes.
   Nothing else is exempt.
 - Brainstorming is the exception that asks: at brainstorm start, ask the
